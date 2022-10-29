@@ -1,0 +1,2 @@
+- name: clipboard alias
+  ansible.builtin.shell:: sudo printf '\n#### Alias for xsel -ib (pipes to clipboard): \nalias clipboard="tee >(xcel -ib)"' >> ~/.bashrc

@@ -1,0 +1,23 @@
+- name: Install packages
+  apt: name={{item}}
+  with_items:
+    - snapd
+    - apt-transport-https
+    - curl
+    - brave-browser
+    - notepadqq
+    - spotify-client
+    - pwgen
+    - subnetcalc
+    - nmap
+    - flameshot
+    - tree
+    - xsel
+    - neofetch
+    - virt-manager
+
+- name: Install snap packages
+  community.general.snap:
+    name:
+      - nordpass
+      - prospect-mail
