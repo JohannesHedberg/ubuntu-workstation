@@ -1,4 +1,4 @@
-- name: Install packages
+- name: install packages
   apt: name={{item}}
   with_items:
     - snapd
@@ -16,7 +16,7 @@
     - neofetch
     - virt-manager
 
-- name: Install snap packages
+- name: install snap packages
   community.general.snap:
     name:
       - nordpass
