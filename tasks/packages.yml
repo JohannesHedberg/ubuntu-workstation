@@ -1,6 +1,6 @@
 - name: install packages
-  apt: name={{item}}
-  with_items:
+  apt: 
+    pkg:
     - snapd
     - apt-transport-https
     - curl

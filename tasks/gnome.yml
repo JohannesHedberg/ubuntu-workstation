@@ -1,5 +1,7 @@
 - name: create git repo folder
-  command: mkdir /home/johannes/git
+  file:
+    path: /home/johannes/git
+    state: directory
 
 - name: copy GNOME Theme Nord Blueish folder
   copy: src=files/.themes dest=/home/johannes/ owner=johannes group=johannes mode=600
