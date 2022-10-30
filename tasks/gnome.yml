@@ -5,7 +5,7 @@
   copy: src=files/.themes dest=/home/johannes/ owner=johannes group=johannes mode=600
 
 - name: set GNOME Nord Blueish Theme
-  ansible.builtin.shell: |
+  shell: |
     gsettings set org.gnome.desktop.interface gtk-theme "Nordic"
     gsettings set org.gnome.desktop.wm.preferences theme "Nordic"
 
@@ -24,14 +24,14 @@
   dconf: key="/org/gnome/desktop/screensaver/picture-uri" value="'file:///home/johannes/.wallpapers/wallpaper01.jpeg'"
 
 - name: spotify nord theme
-  ansible.builtin.shell: |
+  shell: |
     curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.sh | sh
     spicetify config current_theme Sleek color_scheme Nord
     spicetify config inject_css 1 replace_colors 1 overwrite_assets 1
     spicetify apply
 
 - name: vim nord theme
-  ansible.builtin.shell: |
+  shell: |
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     echo "https://github.com/arcticicestudio/nord-vim"
