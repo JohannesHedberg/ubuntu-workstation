@@ -25,8 +25,8 @@
     - qemu-kvm
     - virt-manager
 
-- name: install snap packages
-  community.general.snap:
-    name:
-      - nordpass
-      - prospect-mail
+- name: install nordpass via snap
+  command: snap install nordpass --classic
+
+- name: install prospect-mail via snap
+  command: snap install prospect-mail --classic
