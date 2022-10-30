@@ -1,11 +1,8 @@
 - name: create git repo folder
   command: mkdir /home/johannes/git
 
-- name: create themes folder
-  ansible.builtin.shell: mkdir -p /home/johannes/.themes/
-
 - name: copy GNOME Theme Nord Blueish folder
-  copy: src=files/Nordic-bluish-accent/ dest=/home/johannes/.themes/ owner=johannes group=johannes mode=600
+  copy: src=files/.themes dest=/home/johannes/ owner=johannes group=johannes mode=600
 
 - name: set GNOME Nord Blueish Theme
   ansible.builtin.shell: |
