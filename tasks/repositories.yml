@@ -1,4 +1,17 @@
-#Brave Browser
+# github-cli
+- name: add github-cli apt-key
+  apt_key: 
+    url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+    state: present
+
+- name: add github-cli apt repository
+  apt_repository: 
+    repo: 'deb [arch=amd64] https://cli.github.com/packages stable main' 
+    state: present 
+    filename: gh
+    update_cache: yes
+
+# brave browser
 - name: add brave apt-key
   apt_key: 
     url: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg 
@@ -6,12 +19,25 @@
 
 - name: add brave apt repository
   apt_repository: 
-    repo: 'deb https://brave-browser-apt-release.s3.brave.com/ stable main' 
+    repo: 'deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main' 
     state: present 
     filename: brave-browser 
     update_cache: yes
 
-#Spotify
+# teams
+- name: add teams apt-key
+  apt_key: 
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+
+- name: add teams apt repository
+  apt_repository: 
+    repo: 'deb [arch=amd64] https://cli.github.com/packages stable main' 
+    state: present 
+    filename: teams
+    update_cache: yes
+
+# spotify
 - name: add spotify apt-key
   apt_key:
     url: https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg
@@ -19,7 +45,7 @@
 
 - name: add spotify apt repository
   apt_repository:
-    repo: 'deb http://repository.spotify.com stable non-free'
+    repo: 'deb [arch=amd64] http://repository.spotify.com stable non-free'
     state: present
     filename: spotify-client
     update_cache: yes

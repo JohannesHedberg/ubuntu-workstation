@@ -1,6 +1,17 @@
 - name: create git repo folder
   command: mkdir /home/johannes/git
 
+- name: create themes folder
+  ansible.builtin.shell: mkdir -p /home/johannes/.themes/
+
+- name: copy GNOME Theme Nord Blueish folder
+  copy: src=files/Nordic-bluish-accent/ dest=/home/johannes/.themes/ owner=johannes group=johannes mode=600
+
+- name: set GNOME Nord Blueish Theme
+  ansible.builtin.shell: |
+    gsettings set org.gnome.desktop.interface gtk-theme "Nordic"
+    gsettings set org.gnome.desktop.wm.preferences theme "Nordic"
+
 - name: install python-psutil package
   apt: name=python-psutil
 
