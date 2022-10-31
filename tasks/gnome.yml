@@ -1,3 +1,9 @@
+- name: create .ansible-flags directory for keeping state
+  file:
+    path: /home/johannes/.ansible-flags
+    state: directory
+  become_user: johannes  
+
 - name: create git repo folder
   file:
     path: /home/johannes/git
@@ -82,8 +88,7 @@
 - name: run install.sh for nord konsole theme
   script: 
     chdir: /home/johannes/.theme/nord-konsole-develop 
-    cmd: /home/johannes/.theme/nord-konsole-develop/install.sh && touch /home/johannes/.ansible-flags/nord-konsole-theme
+    cmd: /home/johannes/.theme/nord-konsole-develop/install.sh && sudo touch /home/johannes/.ansible-flags/nord-konsole-theme
     args: 
       creates: /home/johannes/.ansible-flags/nord-konsole-theme
-
 

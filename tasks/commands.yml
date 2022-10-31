@@ -1,9 +1,3 @@
-- name: create .ansible-flags directory for keeping state
-  file:
-    path: /home/johannes/.ansible-flags
-    state: directory
-  become_user: johannes  
-
 - name: clipboard alias
   shell: sudo printf '\n#### Alias for xsel -ib (pipes to clipboard) \nalias clipboard="tee >(xsel -ib)"' >> /home/johannes/.bashrc && touch /home/johannes/.ansible-flags/clipboard
   args: 
