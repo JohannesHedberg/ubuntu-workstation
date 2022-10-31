@@ -4,6 +4,7 @@
     - snapd
     - apt-transport-https
     - curl
+    - python3-psutil
     - brave-browser
     - notepadqq
     - git

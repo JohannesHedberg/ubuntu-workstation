@@ -19,9 +19,6 @@
     key="/org/gnome/desktop/interface/gtk-theme" 
     value="'Nordic'"
 
-- name: install python-psutil package
-  apt: name=python3-psutil
-
 - name: copy wallpaper folder
   copy: src=files/wallpapers/ dest=/home/johannes/.wallpapers/ owner=johannes group=johannes mode=600
 
