@@ -6,8 +6,8 @@
 
 - name: copy GNOME Theme Nordic folder
   copy: 
-    src: files/themes 
-    dest: /usr/share/themes 
+    src: files/themes/ 
+    dest: /usr/share/themes/
     owner: johannes 
     group: johannes 
     mode: 600 
