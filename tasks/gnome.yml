@@ -12,7 +12,7 @@
     gsettings set org.gnome.desktop.wm.preferences theme "Nordic"
 
 - name: install python-psutil package
-  apt: name=python-psutil
+  apt: name=python3-psutil
 
 - name: copy wallpaper folder
   copy: src=files/wallpapers/ dest=/home/johannes/.wallpapers/ owner=johannes group=johannes mode=600
