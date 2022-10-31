@@ -2,6 +2,7 @@
   file:
     path: /home/johannes/git
     state: directory
+  become_user: johannes
 
 - name: copy GNOME Theme Nordic folder
   copy: src=files/themes dest=/usr/share/themes/ owner=johannes group=johannes mode=600 force=no
