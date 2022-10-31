@@ -35,7 +35,6 @@
     spicetify apply
 
 - name: vim nord theme
-  ansible.builtin.shell: |
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    echo "https://github.com/arcticicestudio/nord-vim"
+  shell: |
+  curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  echo "https://github.com/arcticicestudio/nord-vim"
