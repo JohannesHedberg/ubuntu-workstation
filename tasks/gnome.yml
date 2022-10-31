@@ -26,7 +26,9 @@
   dconf: key="/org/gnome/desktop/screensaver/picture-uri" value="'file:///home/johannes/.wallpapers/wallpaper01.jpeg'"
 
 - name: install spotify nord theme
-  shell: curl -sL https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.sh | bash -
+  shell: |
+    curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.sh | bash -
+    curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.sh | bash -
 
 - name: apply spotify nord theme
   shell: |
