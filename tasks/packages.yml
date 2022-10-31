@@ -32,13 +32,25 @@
   command: snap install nordpass --classic
 
 # teams
+- name: check if teams is installed
+  command: dpkg-query -W teams
+  register: teams_check_deb
+  failed_when: teams_check_deb.rc > 1
+  changed_when: teams_check_deb.rc == 1
+
 - name: create teams directory
   file: 
     path: /home/johannes/Downloads/.teams-deb
     state: directory 
+  when: teams_check_deb.rc == 1    
 
 - name: download teams deb
-  get_url: url=https://packages.microsoft.com/repos/ms-teams/pool/main/t/teams/teams_1.3.00.5153_amd64.deb dest=/home/johannes/Downloads/.teams-deb/teams.deb
+  get_url: 
+    url=https://packages.microsoft.com/repos/ms-teams/pool/main/t/teams/teams_1.3.00.5153_amd64.deb 
+    dest=/home/johannes/Downloads/.teams-deb/teams.deb
+  when: teams_check_deb.rc == 1
 
 - name: install teams
-  shell: sudo apt install -y /.teams-deb/teams.deb
+  apt: deb="/.teams-deb/teams.deb"
+  sudo: true
+  when: teams_check_deb.rc == 1
