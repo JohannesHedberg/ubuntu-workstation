@@ -25,16 +25,16 @@
   become_user: johannes
   dconf: key="/org/gnome/desktop/screensaver/picture-uri" value="'file:///home/johannes/.wallpapers/wallpaper01.jpeg'"
 
-- name: install spotify nord theme
-  shell: |
-    curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.sh | bash -
-    curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.sh | bash -
+#- name: install spotify nord theme
+#  shell: |
+#    curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.sh | bash -
+#    curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.sh | bash -
 
-- name: apply spotify nord theme
-  shell: |
-    spicetify config current_theme Sleek color_scheme Nord
-    spicetify config inject_css 1 replace_colors 1 overwrite_assets 1
-    spicetify apply
+#- name: apply spotify nord theme
+#  shell: |
+#    spicetify config current_theme Sleek color_scheme Nord
+#    spicetify config inject_css 1 replace_colors 1 overwrite_assets 1
+#    spicetify apply
 
 - name: vim nord theme
   shell: |
