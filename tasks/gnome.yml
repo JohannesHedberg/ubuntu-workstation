@@ -67,3 +67,6 @@
 - name: run install.sh for nord konsole theme
   shell: ./install.sh 
   chdir: /home/johannes/.theme/nord-konsole-develop
+
+- name: enable pgup and pgdown to search in bash history
+  shell: sudo printf '\n"\e[5~": history-search-backward \n"\e[6~": history-search-forward' >> ~/.bashrc
