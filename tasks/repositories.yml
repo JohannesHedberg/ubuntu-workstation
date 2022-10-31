@@ -26,9 +26,7 @@
 
 # teams
 - name: add teams apt-key
-  apt_key: 
-    url: https://packages.microsoft.com/keys/microsoft.asc
-    state: present
+  shell: curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
 
 - name: add teams apt repository
   apt_repository: 
