@@ -52,5 +52,4 @@
 
 - name: install teams
   apt: deb="/.teams-deb/teams.deb"
-  sudo: true
   when: teams_check_deb.rc == 1
