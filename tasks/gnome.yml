@@ -4,7 +4,7 @@
     state: directory
 
 - name: copy GNOME Theme Nord Blueish folder
-  copy: src=files/.themes dest=/home/johannes/ owner=johannes group=johannes mode=600
+  copy: src=files/.themes dest=/home/johannes/ owner=johannes group=johannes mode=600 force=no
 
 - name: set GNOME Nord Blueish Theme
   shell: |
