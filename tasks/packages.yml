@@ -31,9 +31,6 @@
 - name: install nordpass via snap
   command: snap install nordpass --classic
 
-- name: install azure storage explorer via snap
-  command: snap install storage-explorer --classic
-
 # teams
 - name: create teams directory
   file: 
