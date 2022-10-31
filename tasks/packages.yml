@@ -7,8 +7,10 @@
     - brave-browser
     - notepadqq
     - git
+    - vim
     - gh
     - teams
+    - remmina
     - spotify-client
     - pwgen
     - subnetcalc
@@ -30,3 +32,6 @@
 
 - name: install prospect-mail via snap
   command: snap install prospect-mail --classic
+
+- name: install azure storage explorer via snap
+  command: snap install storage-explorer --classic
