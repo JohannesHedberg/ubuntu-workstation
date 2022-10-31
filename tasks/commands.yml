@@ -5,7 +5,7 @@
   become_user: johannes  
 
 - name: clipboard alias
-  shell: sudo printf '\n#### Alias for xsel -ib (pipes to clipboard) \nalias clipboard="tee >(xcel -ib)"' >> home/johannes/.bashrc && touch /home/johannes/.ansible-flags/clipboard
+  shell: sudo printf '\n#### Alias for xsel -ib (pipes to clipboard) \nalias clipboard="tee >(xcel -ib)"' >> /home/johannes/.bashrc && touch /home/johannes/.ansible-flags/clipboard
   args: 
     creates: /home/johannes/.ansible-flags/clipboard
 
