@@ -35,3 +35,15 @@
 
 - name: install azure storage explorer via snap
   command: snap install storage-explorer --classic
+
+# teams
+- name: create teams directory
+  file: 
+    state=directory 
+    path=/.teams-deb
+
+- name: download teams deb
+  get_url: url=https://packages.microsoft.com/repos/ms-teams/pool/main/t/teams/teams_1.3.00.5153_amd64.deb dest=/.teams-deb/teams.deb
+
+- name: install teams
+  shell: sudo apt install /.teams-deb/teams.deb

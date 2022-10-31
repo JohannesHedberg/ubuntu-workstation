@@ -24,17 +24,6 @@
     filename: brave-browser 
     update_cache: yes
 
-# teams
-- name: add teams apt-key
-  shell: curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-
-- name: add teams apt repository
-  apt_repository: 
-    repo: 'deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main' 
-    state: present 
-    filename: teams
-    update_cache: yes
-
 # spotify
 - name: add spotify apt-key
   apt_key:
