@@ -17,6 +17,8 @@
     - flameshot
     - tree
     - xsel
+    - gnome-tweaks
+    - gnome-shell-extensions
     - neofetch
     - bridge-utils
     - cpu-checker
