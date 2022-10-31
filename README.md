@@ -50,9 +50,9 @@ virt-manager
 
 
 ### Gnome:
-create a git folder in home  
-create a hidden themes folder in home  
-copy the nord theme for gnome to .themes and apply it  
+create git folder in home  
+create .themes folder in home  
+copy the nord theme for gnome to /usr/share/.themes and apply it  
 install python-psutil which will enable setting things like wallpaper with this playbook  
 set wallpaper and lock screen background  
 set profile pic  
@@ -60,7 +60,8 @@ set profile pic
 
 ### Commands:
 add the alias "clipboard" which will copy contents of command output to clipboard. example:  
-`echo "hello" | clipboard` 
+`echo "hello" | clipboard`  
+enable pgup and pgdown to search in bash history in /etc/inputrc
 
 ### Cron:
 set a cronjob that will check this repo for changes every 10 min and run this playbook if there's been an update 
