@@ -61,7 +61,7 @@
 
 - name: create theme folder for theme related stuff
   file:
-    path: /home/johannes/.theme
+    path: /home/johannes/.theme/nord-konsole-develop
     state: directory
   become_user: johannes
 
