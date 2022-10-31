@@ -4,16 +4,21 @@
     state: directory
   become_user: johannes
 
-- name: copy GNOME Theme Nordic folder
+- name: copy gnome theme nordic zip
   copy: 
-    src: files/themes/ 
+    src: files/themes/nordic.tar.gz
     dest: /usr/share/themes/
     owner: johannes 
     group: johannes 
     mode: 600 
     force: no
 
-- name: set GNOME Nordic Theme
+- name: extract gnome theme nordic zip
+  unarchive: 
+    src: /usr/share/themes/nordic.tar.gz
+    dest: /usr/share/themes
+
+- name: set gnome nordic theme
   become_user: johannes
   dconf: 
     key="/org/gnome/desktop/interface/gtk-theme" 
