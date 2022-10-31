@@ -30,7 +30,7 @@
 
 - name: add teams apt repository
   apt_repository: 
-    repo: 'deb [arch=amd64] https://cli.github.com/packages stable main' 
+    repo: 'deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main' 
     state: present 
     filename: teams
     update_cache: yes
