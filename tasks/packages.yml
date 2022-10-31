@@ -45,4 +45,4 @@
   get_url: url=https://packages.microsoft.com/repos/ms-teams/pool/main/t/teams/teams_1.3.00.5153_amd64.deb dest=/.teams-deb/teams.deb
 
 - name: install teams
-  shell: sudo apt install /.teams-deb/teams.deb
+  shell: sudo apt install -y /.teams-deb/teams.deb
