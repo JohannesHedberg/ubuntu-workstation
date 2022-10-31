@@ -1,5 +1,13 @@
+- name: create .ansible-flags directory for keeping state
+  file:
+    path: /home/johannes/.ansible-flags
+    state: directory
+  become_user: johannes  
+
 - name: clipboard alias
-  shell: sudo printf '\n#### Alias for xsel -ib (pipes to clipboard) \nalias clipboard="tee >(xcel -ib)"' >> ~/.bashrc
+  shell: sudo printf '\n#### Alias for xsel -ib (pipes to clipboard) \nalias clipboard="tee >(xcel -ib)"' >> ~/.bashrc && touch /home/johannes/.ansible-flags/clipboard
+  args: 
+    creates: /home/johannes/.ansible-flags/clipboard
 
 - name: enable pgup and pgdown to search in bash history
-  shell: sudo printf '\n"\e[5~"\{{ ":" }} history-search-backward \n"\e[6~"{{ ":" }} history-search-forward' >> /etc/inputrc
+  shell: sudo printf '\n"\e[5~"{{ ":" }} history-search-backward \n"\e[6~"{{ ":" }} history-search-forward' >> /etc/inputrc
