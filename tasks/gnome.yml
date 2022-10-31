@@ -10,7 +10,7 @@
     dest: /usr/share/themes/
     owner: johannes 
     group: johannes 
-    mode: 600 
+    mode: '0600' 
     force: no
 
 - name: extract gnome theme nordic zip
@@ -30,7 +30,7 @@
     dest: /home/johannes/.wallpapers/ 
     owner: johannes 
     group: johannes 
-    mode: 600
+    mode: '0600'
 
 - name: set wallpaper
   become_user: johannes
@@ -50,7 +50,7 @@
     dest: /var/lib/AccountsService/icons/johannes
     owner: johannes 
     group: johannes 
-    mode: 600
+    mode: '0600'
 
 - name: set profile picture
   become: true
@@ -69,9 +69,9 @@
   copy: 
     src: files/nord-konsole-develop.tar.gz
     dest: /home/johannes/.theme
-    owner: johannes 
-    group: johannes 
-    mode: 600 
+    owner: johannes
+    group: johannes
+    mode: '0600' 
     force: no
 
 - name: extract gnome theme nordic zip
