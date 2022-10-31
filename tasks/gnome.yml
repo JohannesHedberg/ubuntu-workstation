@@ -3,13 +3,19 @@
     path: /home/johannes/git
     state: directory
 
-- name: copy GNOME Theme Nord Blueish folder
+- name: copy GNOME Theme Nordic folder
   copy: src=files/themes dest=/usr/share/themes/ owner=johannes group=johannes mode=600 force=no
 
-- name: set GNOME Nord Blueish Theme
-  shell: |
-    gsettings set org.gnome.desktop.interface gtk-theme "Nordic"
-    gsettings set org.gnome.desktop.wm.preferences theme "Nordic"
+#- name: set GNOME Nordic Theme
+#  shell: |
+#    gsettings set org.gnome.desktop.interface gtk-theme "Nordic"
+#    gsettings set org.gnome.desktop.wm.preferences theme "Nordic"
+
+- name: set GNOME Nordic Theme
+  become_user: johannes
+  dconf: 
+    key="/org/gnome/desktop/interface/gtk-theme" 
+    value="'Nordic'"
 
 - name: install python-psutil package
   apt: name=python3-psutil
@@ -19,11 +25,15 @@
 
 - name: set wallpaper
   become_user: johannes
-  dconf: key="/org/gnome/desktop/background/picture-uri" value="'file:///home/johannes/.wallpapers/wallpaper01.jpeg'"
+  dconf: 
+    key="/org/gnome/desktop/background/picture-uri" 
+    value="'file:///home/johannes/.wallpapers/wallpaper01.jpeg'"
 
 - name: set lock screen background
   become_user: johannes
-  dconf: key="/org/gnome/desktop/screensaver/picture-uri" value="'file:///home/johannes/.wallpapers/wallpaper01.jpeg'"
+  dconf: 
+    key="/org/gnome/desktop/screensaver/picture-uri" 
+    value="'file:///home/johannes/.wallpapers/wallpaper01.jpeg'"
 
 #- name: install spotify nord theme
 #  shell: |
