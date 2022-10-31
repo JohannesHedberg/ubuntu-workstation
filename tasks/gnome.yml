@@ -80,6 +80,6 @@
     dest: /home/johannes/.theme/nord-konsole-develop
 
 - name: run install.sh for nord konsole theme
-  shell: ./install.sh 
-  chdir: /home/johannes/.theme/nord-konsole-develop
+  script: /home/johannes/.theme/nord-konsole-develop/install.sh 
+
 
