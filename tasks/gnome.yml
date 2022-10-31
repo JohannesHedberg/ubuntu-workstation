@@ -27,9 +27,9 @@
 - name: copy wallpaper folder
   copy: 
     src: files/wallpapers/ 
-    dest: home/johannes/.local/share/konsole/
+    dest: /home/johannes/.wallpapers/ 
     owner: johannes 
-    group: johannes
+    group: johannes 
     mode: 600
 
 - name: set wallpaper
@@ -43,6 +43,21 @@
   dconf: 
     key="/org/gnome/desktop/screensaver/picture-uri" 
     value="'file:///home/johannes/.wallpapers/wallpaper01.jpeg'"
+
+- name: copy profile pic
+  copy: 
+    src: files/pictures/johannes.jpg
+    dest: /var/lib/AccountsService/icons/johannes
+    owner: johannes 
+    group: johannes 
+    mode: 600
+
+- name: set profile picture
+  become: true
+  lineinfile:
+    path: /var/lib/AccountsService/users/johannes
+    regexp: '^Icon='
+    line: 'Icon=/var/lib/AccountsService/icons/johannes'
 
 - name: create theme folder for theme related stuff
   file:
