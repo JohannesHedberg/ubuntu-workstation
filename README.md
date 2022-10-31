@@ -33,6 +33,8 @@ nmap
 flameshot  
 tree  
 xsel  
+gnome-tweaks  
+gnome-shell-extensions  
 neofetch  
 virt-manager  
 nordpass  
@@ -43,15 +45,15 @@ libvirt-clients
 libvirt-daemon  
 qemu  
 qemu-kvm  
+virt-manager  
 
 
 ### Gnome:
 create a git folder in home  
 create a hidden themes folder in home  
-copy the nord blueish theme for gnome to .themes and apply it  
+copy the nord theme for gnome to .themes and apply it  
 install python-psutil which will enable setting things like wallpaper with this playbook  
 set wallpaper and lock screen background  
-install nord theme for spotify  
 install nord theme for vim    
 
 ### Commands:
