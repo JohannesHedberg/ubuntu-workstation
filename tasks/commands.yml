@@ -2,4 +2,4 @@
   shell: sudo printf '\n#### Alias for xsel -ib (pipes to clipboard) \nalias clipboard="tee >(xcel -ib)"' >> ~/.bashrc
 
 - name: enable pgup and pgdown to search in bash history
-  shell: sudo printf '\n"\e[5~"\{{ ":" }} history-search-backward \n"\e[6~"{{ ":" }} history-search-forward' >> ~/etc/inputrc
+  shell: sudo printf '\n"\e[5~"\{{ ":" }} history-search-backward \n"\e[6~"{{ ":" }} history-search-forward' >> /etc/inputrc
