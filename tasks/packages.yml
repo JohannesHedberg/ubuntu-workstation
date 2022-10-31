@@ -54,6 +54,6 @@
   when: teams_check_deb.rc == 1
 
 - name: install teams
-  apt: deb="/.teams-deb/teams.deb"
+  apt: deb="/home/johannes/Downloads/.teams-deb/teams.deb"
   when: teams_check_deb.rc == 1
 
