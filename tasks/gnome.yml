@@ -13,11 +13,6 @@
     mode: 600 
     force: no
 
-#- name: set GNOME Nordic Theme
-#  shell: |
-#    gsettings set org.gnome.desktop.interface gtk-theme "Nordic"
-#    gsettings set org.gnome.desktop.wm.preferences theme "Nordic"
-
 - name: set GNOME Nordic Theme
   become_user: johannes
   dconf: 
@@ -41,17 +36,6 @@
   dconf: 
     key="/org/gnome/desktop/screensaver/picture-uri" 
     value="'file:///home/johannes/.wallpapers/wallpaper01.jpeg'"
-
-#- name: install spotify nord theme
-#  shell: |
-#    curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.sh | bash -
-#    curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.sh | bash -
-
-#- name: apply spotify nord theme
-#  shell: |
-#    spicetify config current_theme Sleek color_scheme Nord
-#    spicetify config inject_css 1 replace_colors 1 overwrite_assets 1
-#    spicetify apply
 
 - name: vim nord theme
   shell: |
