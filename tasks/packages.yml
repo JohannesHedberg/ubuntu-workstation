@@ -5,11 +5,13 @@
     - apt-transport-https
     - curl
     - python3-psutil
+    - util-linux
     - brave-browser
     - notepadqq
     - git
-    - vim
     - gh
+    - konsole    
+    - vim
     - remmina
     - spotify-client
     - pwgen

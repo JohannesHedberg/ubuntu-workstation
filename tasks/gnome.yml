@@ -21,11 +21,16 @@
 - name: set gnome nordic theme
   become_user: johannes
   dconf: 
-    key="/org/gnome/desktop/interface/gtk-theme" 
-    value="'Nordic'"
+    key: "/org/gnome/desktop/interface/gtk-theme" 
+    value: "'Nordic-bluish-accent'"
 
 - name: copy wallpaper folder
-  copy: src=files/wallpapers/ dest=/home/johannes/.wallpapers/ owner=johannes group=johannes mode=600
+  copy: 
+    src: files/wallpapers/ 
+    dest: home/johannes/.local/share/konsole/
+    owner: johannes 
+    group: johannes
+    mode: 600
 
 - name: set wallpaper
   become_user: johannes
@@ -39,7 +44,26 @@
     key="/org/gnome/desktop/screensaver/picture-uri" 
     value="'file:///home/johannes/.wallpapers/wallpaper01.jpeg'"
 
-- name: vim nord theme
-  shell: |
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    echo "https://github.com/arcticicestudio/nord-vim"
+- name: create theme folder for theme related stuff
+  file:
+    path: /home/johannes/.theme
+    state: directory
+  become_user: johannes
+
+- name: copy konsole theme nord zip
+  copy: 
+    src: files/nord-konsole-develop.tar.gz
+    dest: /home/johannes/.theme
+    owner: johannes 
+    group: johannes 
+    mode: 600 
+    force: no
+
+- name: extract gnome theme nordic zip
+  unarchive: 
+    src: /home/johannes/.theme/nord-konsole-develop.tar.gz
+    dest: /home/johannes/.theme/nord-konsole-develop
+
+- name: run install.sh for nord konsole theme
+  shell: ./install.sh 
+  chdir: /home/johannes/.theme/nord-konsole-develop

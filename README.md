@@ -26,6 +26,9 @@ curl
 brave-browser  
 notepadqq  
 git  
+gh  
+konsole  
+vim  
 spotify-client  
 pwgen  
 subnetcalc  
@@ -36,9 +39,7 @@ xsel
 gnome-tweaks  
 gnome-shell-extensions  
 neofetch  
-virt-manager  
 nordpass  
-prospect-mail  
 bridge-utils  
 cpu-checker  
 libvirt-clients  
@@ -54,7 +55,7 @@ create a hidden themes folder in home
 copy the nord theme for gnome to .themes and apply it  
 install python-psutil which will enable setting things like wallpaper with this playbook  
 set wallpaper and lock screen background  
-install nord theme for vim    
+
 
 ### Commands:
 add the alias "clipboard" which will copy contents of command output to clipboard. example:  
