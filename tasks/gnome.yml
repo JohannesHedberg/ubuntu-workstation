@@ -32,7 +32,7 @@
 
 - name: copy folders icons nordic zip
   copy: 
-    src: files/themes/nordarc-icons.tar.gz
+    src: files/themes/nordic-folders.tar.gz
     dest: /home/johannes/.theme/
     owner: johannes 
     group: johannes 
@@ -41,7 +41,7 @@
 
 - name: extract gnome theme nordic zip
   unarchive: 
-    src: /home/johannes/.theme/nordarc-icons.tar.gz
+    src: /home/johannes/.theme/nordic-folders.tar.gz
     dest: /usr/share/icons
 
 #- name: set gnome nordic theme
@@ -93,7 +93,7 @@
 
 - name: copy konsole theme nord zip
   copy: 
-    src: files/nord-konsole-develop.tar.gz
+    src: files/themes/nord-konsole-develop.tar.gz
     dest: /home/johannes/.theme
     owner: johannes
     group: johannes
