@@ -13,7 +13,7 @@
 - name: copy gnome theme nordic zip
   copy: 
     src: files/themes/nordic.tar.gz
-    dest: /usr/share/themes/
+    dest: /home/johannes/.theme/
     owner: johannes 
     group: johannes 
     mode: '0600' 
@@ -21,14 +21,34 @@
 
 - name: extract gnome theme nordic zip
   unarchive: 
-    src: /usr/share/themes/nordic.tar.gz
+    src: /home/johannes/.theme/nordic.tar.gz
     dest: /usr/share/themes
 
 - name: set gnome nordic theme
   become_user: johannes
   dconf: 
     key: "/org/gnome/desktop/interface/gtk-theme" 
-    value: "'Nordic-bluish-accent'"
+    value: "'Nordic-bluish-accent-v40'"
+
+- name: copy folders icons nordic zip
+  copy: 
+    src: files/themes/nordic-folders.tar.gz
+    dest: /home/johannes/.theme/
+    owner: johannes 
+    group: johannes 
+    mode: '0600' 
+    force: no
+
+- name: extract gnome theme nordic zip
+  unarchive: 
+    src: /home/johannes/.theme/nordic.tar.gz
+    dest: /usr/share/icons
+
+#- name: set gnome nordic theme
+#  become_user: johannes
+#  dconf: 
+#    key: "/org/gnome/desktop/interface/gtk-theme" 
+#    value: "'Nordic-bluish-accent-v40'"
 
 - name: copy wallpaper folder
   copy: 
@@ -59,7 +79,7 @@
     mode: '0600'
 
 - name: set profile picture
-  become: true
+  become_user: johannes
   lineinfile:
     path: /var/lib/AccountsService/users/johannes
     regexp: '^Icon='
