@@ -44,11 +44,11 @@
     src: /home/johannes/.theme/nordic-folders.tar.xz
     dest: /usr/share/icons
 
-#- name: set gnome nordic theme
-#  become_user: johannes
-#  dconf: 
-#    key: "/org/gnome/desktop/interface/gtk-theme" 
-#    value: "'Nordic-bluish-accent-v40'"
+- name: set gnome nordic theme
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/desktop/interface/icon-theme" 
+    value: "'Nordic-bluish'"
 
 - name: copy wallpaper folder
   copy: 
