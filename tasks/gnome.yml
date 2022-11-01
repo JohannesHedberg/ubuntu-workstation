@@ -41,7 +41,7 @@
 
 - name: extract gnome theme nordic zip
   unarchive: 
-    src: /home/johannes/.theme/nordic.tar.gz
+    src: /home/johannes/.theme/nordic-folders.tar.gz
     dest: /usr/share/icons
 
 #- name: set gnome nordic theme
@@ -79,7 +79,7 @@
     mode: '0600'
 
 - name: set profile picture
-  become_user: johannes
+  become: true
   lineinfile:
     path: /var/lib/AccountsService/users/johannes
     regexp: '^Icon='
