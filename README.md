@@ -23,12 +23,15 @@ spotify
 snapd  
 apt-transport-https  
 curl  
+python3-psutil  
+util-linux  
 brave-browser  
 notepadqq  
 git  
 gh  
 konsole  
 vim  
+remmina  
 spotify-client  
 pwgen  
 subnetcalc  
@@ -39,7 +42,6 @@ xsel
 gnome-tweaks  
 gnome-shell-extensions  
 neofetch  
-nordpass  
 bridge-utils  
 cpu-checker  
 libvirt-clients  
@@ -47,6 +49,7 @@ libvirt-daemon
 qemu  
 qemu-kvm  
 virt-manager  
+teams  
 
 
 ### Gnome:
@@ -56,6 +59,7 @@ copy the nord theme for gnome to /usr/share/.themes and apply it
 install python-psutil which will enable setting things like wallpaper with this playbook  
 set wallpaper and lock screen background  
 set profile pic  
+minor desktop configurations such as dock settings
 
 
 ### Commands:
@@ -64,4 +68,4 @@ add the alias "clipboard" which will copy contents of command output to clipboar
 enable pgup and pgdown to search in bash history in /etc/inputrc
 
 ### Cron:
-set a cronjob that will check this repo for changes every 10 min and run this playbook if there's been an update 
+set a cronjob that will check this repo for changes every 60 min and run this playbook if there's been an update 

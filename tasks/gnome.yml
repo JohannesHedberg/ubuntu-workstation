@@ -112,3 +112,39 @@
     args: 
       creates: /home/johannes/.ansible-flags/nord-konsole-theme
 
+- name: set gnome desktop setting show-clock-weekday
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/desktop/interface/clock-show-weekday" 
+    value: "true"
+
+- name: set gnome desktop dock to bottom
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/dock-position" 
+    value: "'BOTTOM'"
+
+- name: set gnome desktop dock to multi-monitor
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/multi-monitor" 
+    value: "true"
+
+- name: set gnome desktop dock to hide trashcan
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/show-trash" 
+    value: "false"
+
+- name: set gnome desktop dock to extend-height false
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/extend-height" 
+    value: "false"
+
+- name: set gnome desktop dock to fixed icon size 48
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/dash-max-icon-size" 
+    value: "48"
+
