@@ -20,6 +20,8 @@
     - flameshot
     - tree
     - xsel
+    - fd-find
+    - fzf
     - gnome-tweaks
     - gnome-shell-extensions
     - neofetch

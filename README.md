@@ -39,6 +39,8 @@ nmap
 flameshot  
 tree  
 xsel  
+fdfind  
+fzf  
 gnome-tweaks  
 gnome-shell-extensions  
 neofetch  
