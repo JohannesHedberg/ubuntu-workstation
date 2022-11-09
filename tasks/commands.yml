@@ -4,6 +4,11 @@
     creates: /home/johannes/.ansible-flags/clipboard
 
 - name: enable pgup and pgdown to search in bash history
-  shell: sudo printf '\n"\e[5~"{{ ":" }} history-search-backward \n"\e[6~"{{ ":" }} history-search-forward' >> /etc/inputrc && touch /home/johannes/.ansible-flags/bash_history
+  shell: sudo printf '\n#enables effective cmd history search using pgup and pgdwn\n"\e[5~"{{ ":" }} history-search-backward \n"\e[6~"{{ ":" }} history-search-forward\n' >> /etc/inputrc && touch /home/johannes/.ansible-flags/bash_history
   args:
     creates: /home/johannes/.ansible-flags/bash_history
+
+- name: enable effective change directory addon using shortcut f
+  shell: sudo printf '\n#enables effective change directory searching using shortcut f\nf () {\n  d=$(fdfind --type directory | fzf)\n  [[ ! -z "$d" ]] && cd $d\n' >> ~/.bashrc && touch /home/johannes/.ansible-flags/cd-search
+  args:
+    creates: /home/johannes/.ansible-flags/cd-search
