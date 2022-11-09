@@ -4,7 +4,7 @@
     creates: /home/johannes/.ansible-flags/clipboard
 
 - name: enable pgup and pgdown to search in bash history
-  shell: sudo printf '\n#enables effective cmd history search using pgup and pgdwn\n"{{ "\e[5~":" }} history-search-backward \n""{{ "\e[6~:" }} history-search-forward\n' >> /etc/inputrc && touch /home/johannes/.ansible-flags/bash_history
+  shell: sudo printf '\n#enables effective cmd history search using pgup and pgdwn\n"\e[5~"{{ ":" }} history-search-backward \n"\e[6~"{{ ":" }} history-search-forward\n' >> /etc/inputrc && touch /home/johannes/.ansible-flags/bash_history
   args:
     creates: /home/johannes/.ansible-flags/bash_history
 
