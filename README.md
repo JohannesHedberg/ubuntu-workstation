@@ -31,6 +31,7 @@ git
 gh  
 konsole  
 vim  
+docker  
 fonts-hack-ttf  
 remmina  
 spotify-client  
