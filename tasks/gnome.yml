@@ -65,7 +65,7 @@
 - name: set hack font for titlebars
   become_user: johannes
   dconf: 
-    key: "org/gnome/desktop/wm/preferences" 
+    key: "/org/gnome/desktop/wm/preferences" 
     value: "'Hack Bold 11'"
 
 - name: set some apps as favorite
