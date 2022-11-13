@@ -182,7 +182,7 @@
     force: no
 
 - name: remove init dotfiles for konsole
-  shell: rm -r /home/johannes/.local/share/konsole
+  shell: rm -r /home/johannes/.local/share/konsole && touch /home/johannes/.ansible-flags/konsole-dotfiles
   args:
     creates: /home/johannes/.ansible-flags/konsole-dotfiles
 
@@ -194,7 +194,7 @@
   shell: cp /home/johannes/.dotfiles/konsole/konsolerc /home/johannes/.config/konsolerc
 
 - name: remove init dotfiles for konsole
-  shell: rm -r /home/johannes/.config/Notepadqq
+  shell: rm -r /home/johannes/.config/Notepadqq && touch /home/johannes/.ansible-flags/notepadqq-dotfiles
   args:
     creates: /home/johannes/.ansible-flags/notepadqq-dotfiles
     
