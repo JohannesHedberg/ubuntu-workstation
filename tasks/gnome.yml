@@ -72,7 +72,7 @@
   become_user: johannes
   dconf: 
     key: "/org/gnome/shell/favorite-apps" 
-    value: "'['org.gnome.Nautilus.desktop', 'brave-browser.desktop', 'org.kde.konsole.desktop', 'spotify.desktop']'"
+    value: "['org.gnome.Nautilus.desktop', 'brave-browser.desktop', 'org.kde.konsole.desktop', 'spotify.desktop']"
 
 - name: copy wallpaper folder
   copy: 
