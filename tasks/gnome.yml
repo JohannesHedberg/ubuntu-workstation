@@ -188,14 +188,17 @@
 
 - name: create symbolic link for konsole dotfiles
   shell: ln -sv /home/johannes/.dotfiles/konsole /home/johannes/.local/share/
-  args:
-    creates: /home/johannes/.ansible-flags/konsole-dotfile
   ignore_errors: yes
 
 - name: copy konsole main configuration file
   shell: cp /home/johannes/.dotfiles/konsole/konsolerc /home/johannes/.config/konsolerc
 
-- name: create symbolic link for notepadqq dotfiles
-  shell: ln -sv /home/johannes/.dotfiles/notepadqq /home/johannes/.config/Notepadqq
+- name: remove init dotfiles for konsole
+  shell: rm -r /home/johannes/.config/Notepadqq
   args:
-    creates: /home/johannes/.ansible-flags/notepadqq-dotfile
+    creates: /home/johannes/.ansible-flags/notepadqq-dotfiles
+    
+- name: create symbolic link for notepadqq dotfiles
+  shell: ln -sv /home/johannes/.dotfiles/Notepadqq /home/johannes/.config/
+  ignore_errors: yes
+
