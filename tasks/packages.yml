@@ -10,12 +10,13 @@
     - notepadqq
     - git
     - gh
-    - konsole    
-    - vim
-    - remmina
-    - spotify-client
-    - pwgen
-    - subnetcalc
+    - konsole  
+    - vim  
+    - fonts-hack-ttf
+    - remmina  
+    - spotify-client  
+    - pwgen  
+    - subnetcalc  
     - nmap
     - flameshot
     - tree

@@ -50,6 +50,30 @@
     key: "/org/gnome/desktop/interface/icon-theme" 
     value: "'Nordic-bluish'"
 
+- name: set hack font
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/desktop/interface/font-name" 
+    value: "'Hack 11'"    
+
+- name: set hack font for documents
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/desktop/interface/document-font-name" 
+    value: "'Hack 11'"    
+
+- name: set hack font for titlebars
+  become_user: johannes
+  dconf: 
+    key: "org/gnome/desktop/wm/preferences" 
+    value: "'Hack Bold 11'"
+
+- name: set some apps as favorite
+  become_user: johannes
+  dconf: 
+    key: "org/gnome/shell/favorite-apps" 
+    value: "'['org.gnome.Nautilus.desktop', 'brave-browser.desktop', 'org.kde.konsole.desktop', 'spotify.desktop']'"
+
 - name: copy wallpaper folder
   copy: 
     src: files/wallpapers/ 
@@ -158,14 +182,14 @@
     force: no
 
 - name: create symbolic link for konsole dotfiles
-  shell: ln -sv /home/johannes/.dotfiles/konsole /home/johannes/.local/share/konsole
+  shell: ln -sv /home/johannes/.dotfiles/konsole /home/johannes/.local/share/
   args:
     creates: /home/johannes/.ansible-flags/konsole-dotfile
+
+- name: copy konsole main configuration file
+  shell: cp /home/johannes/.dotfiles/konsole/konsolerc /home/johannes/.config/konsolerc
 
 - name: create symbolic link for notepadqq dotfiles
   shell: ln -sv /home/johannes/.dotfiles/notepadqq /home/johannes/.config/Notepadqq
   args:
     creates: /home/johannes/.ansible-flags/notepadqq-dotfile
-
-
-

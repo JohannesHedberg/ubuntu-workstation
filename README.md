@@ -31,6 +31,7 @@ git
 gh  
 konsole  
 vim  
+fonts-hack-ttf  
 remmina  
 spotify-client  
 pwgen  
@@ -58,6 +59,8 @@ teams
 create git folder in home  
 create .themes folder in home  
 copy the nord theme for gnome to /usr/share/.themes and apply it  
+apply hack font
+set a few apps as favorites
 install python-psutil which will enable setting things like wallpaper with this playbook  
 set wallpaper and lock screen background  
 set profile pic  
@@ -70,4 +73,4 @@ add the alias "clipboard" which will copy contents of command output to clipboar
 enable pgup and pgdown to search in bash history in /etc/inputrc
 
 ### Cron:
-set a cronjob that will check this repo for changes every 60 min and run this playbook if there's been an update 
+(disabled) set a cronjob that will check this repo for changes every 60 min and run this playbook if there's been an update 
