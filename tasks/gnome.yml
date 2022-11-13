@@ -181,10 +181,16 @@
     mode: '0600'
     force: no
 
+- name: remove init dotfiles for konsole
+  shell: rm -r /home/johannes/.local/share/konsole
+  args:
+    creates: /home/johannes/.ansible-flags/konsole-dotfiles
+
 - name: create symbolic link for konsole dotfiles
   shell: ln -sv /home/johannes/.dotfiles/konsole /home/johannes/.local/share/
   args:
     creates: /home/johannes/.ansible-flags/konsole-dotfile
+  ignore_errors: yes
 
 - name: copy konsole main configuration file
   shell: cp /home/johannes/.dotfiles/konsole/konsolerc /home/johannes/.config/konsolerc
