@@ -148,3 +148,24 @@
     key: "/org/gnome/shell/extensions/dash-to-dock/dash-max-icon-size" 
     value: "48"
 
+- name: copy dotfiles
+  copy: 
+    src: files/dotfiles/
+    dest: /home/johannes/.dotfiles/
+    owner: johannes 
+    group: johannes 
+    mode: '0600'
+    force: no
+
+- name: create symbolic link for konsole dotfiles
+  shell: ln -sv /home/johannes/.dotfiles/konsole /home/johannes/.local/share/konsole
+  args:
+    creates: /home/johannes/.ansible-flags/konsole-dotfile
+
+- name: create symbolic link for notepadqq dotfiles
+  shell: ln -sv /home/johannes/.dotfiles/notepadqq /home/johannes/.config/Notepadqq
+  args:
+    creates: /home/johannes/.ansible-flags/notepadqq-dotfile
+
+
+

@@ -12,3 +12,4 @@
   shell: sudo printf '\n#enables effective change directory searching using shortcut f\nf () {\n  d=$(fdfind --type directory | fzf)\n  [[ ! -z "$d" ]] && cd $d\n}\n' >> /home/johannes/.bashrc && touch /home/johannes/.ansible-flags/cd-search
   args:
     creates: /home/johannes/.ansible-flags/cd-search
+
