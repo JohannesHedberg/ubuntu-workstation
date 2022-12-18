@@ -212,7 +212,7 @@
 
 - name: extract gnome-extensions.zip
   unarchive: 
-    src: /home/johannes/.theme/gnome-extensions.zip
+    src: /home/johannes/.theme/extensions.zip
     dest: /home/johannes/.local/share/gnome-shell/extensions/
   args:
     creates: /home/johannes/.ansible-flags/gnome-extensions-unzip
