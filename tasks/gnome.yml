@@ -227,7 +227,7 @@
   become_user: johannes
   dconf: 
     key: "/org/gnome/shell/extensions/unite/hide-activities-button" 
-    value: "'never'"
+    value: "'always'"
 
 - name: gnome-extension unite hide app menu icons
   become_user: johannes
@@ -277,8 +277,15 @@
     key: "/org/gnome/shell/extensions/rounded-window-corners/settings-version" 
     value: "'uint32 5'"
 
-- name: gnome-extension rounded corners settings version
+- name: hide home folder on desktop
   become_user: johannes
   dconf: 
     key: "/org/gnome/shell/extensions/ding/show-home" 
     value: "'false'"
+
+- name: enable hot corner top left - activities
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/desktop/interface/enable-hot-corners" 
+    value: "'true'"
+
