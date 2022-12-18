@@ -72,7 +72,7 @@
   become_user: johannes
   dconf: 
     key: "/org/gnome/shell/favorite-apps" 
-    value: "['org.gnome.Nautilus.desktop', 'brave-browser.desktop', 'org.kde.konsole.desktop', 'spotify.desktop']"
+    value: "['brave-browser.desktop', 'terminal.desktop', 'code.desktop', 'spotify.desktop']"
 
 - name: copy wallpaper folder
   copy: 
@@ -103,7 +103,7 @@
     mode: '0600'
 
 - name: set profile picture
-  become: true
+  become_user: johannes
   lineinfile:
     path: /var/lib/AccountsService/users/johannes
     regexp: '^Icon='
@@ -111,7 +111,7 @@
 
 - name: create theme folder for theme related stuff
   file:
-    path: /home/johannes/.theme/nord-konsole-develop
+    path: /home/johannes/.theme/
     state: directory
   become_user: johannes
 
@@ -128,13 +128,6 @@
   unarchive: 
     src: /home/johannes/.theme/nord-konsole-develop.tar.gz
     dest: /home/johannes/.theme/nord-konsole-develop
-
-- name: run install.sh for nord konsole theme
-  script: 
-    chdir: /home/johannes/.theme/nord-konsole-develop 
-    cmd: /home/johannes/.theme/nord-konsole-develop/install.sh && sudo touch /home/johannes/.ansible-flags/nord-konsole-theme
-    args: 
-      creates: /home/johannes/.ansible-flags/nord-konsole-theme
 
 - name: set gnome desktop setting show-clock-weekday
   become_user: johannes
@@ -180,25 +173,18 @@
     group: johannes 
     mode: '0600'
     force: no
-
-- name: remove init dotfiles for konsole
-  shell: rm -r /home/johannes/.local/share/konsole && touch /home/johannes/.ansible-flags/konsole-dotfiles
-  args:
-    creates: /home/johannes/.ansible-flags/konsole-dotfiles
-
-- name: create symbolic link for konsole dotfiles
-  shell: ln -sv /home/johannes/.dotfiles/konsole /home/johannes/.local/share/
-  ignore_errors: yes
-
-- name: copy konsole main configuration file
-  shell: cp /home/johannes/.dotfiles/konsole/konsolerc /home/johannes/.config/konsolerc
-
-- name: remove init dotfiles for konsole
-  shell: rm -r /home/johannes/.config/Notepadqq && touch /home/johannes/.ansible-flags/notepadqq-dotfiles
-  args:
-    creates: /home/johannes/.ansible-flags/notepadqq-dotfiles
     
 - name: create symbolic link for notepadqq dotfiles
   shell: ln -sv /home/johannes/.dotfiles/Notepadqq /home/johannes/.config/
   ignore_errors: yes
+
+- name: clone nord theme for terminal
+  shell: cd ~/git/ && git clone https://github.com/arcticicestudio/nord-gnome-terminal.git && cd nord-gnome-terminal/src && 
+  args:
+    creates: /home/johannes/.ansible-flags/terminal_nord_theme_clone
+
+- name: apply nord theme for terminal
+  shell: ./nord.sh -p johannes
+  args: 
+    creates: /home/johannes/.ansible-flags/terminal_nord_theme_apply 
 

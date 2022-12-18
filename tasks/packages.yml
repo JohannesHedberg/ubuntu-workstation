@@ -38,6 +38,9 @@
 - name: install nordpass via snap
   command: snap install nordpass --classic
 
+- name: install vscode via snap
+  command: snap install code --classic
+
 # teams
 - name: check if teams is installed
   command: dpkg-query -W teams

@@ -29,7 +29,7 @@ brave-browser
 notepadqq  
 git  
 gh  
-konsole  
+vscode  
 vim  
 docker  
 fonts-hack-ttf  
@@ -60,12 +60,13 @@ teams
 create git folder in home  
 create .themes folder in home  
 copy the nord theme for gnome to /usr/share/.themes and apply it  
-apply hack font
-set a few apps as favorites
+apply hack font  
+set a few apps as favorites  
 install python-psutil which will enable setting things like wallpaper with this playbook  
 set wallpaper and lock screen background  
 set profile pic  
-minor desktop configurations such as dock settings
+general desktop configuration  
+copy and apply dotfiles  
 
 
 ### Commands:
@@ -75,3 +76,4 @@ enable pgup and pgdown to search in bash history in /etc/inputrc
 
 ### Cron:
 (disabled) set a cronjob that will check this repo for changes every 60 min and run this playbook if there's been an update 
+
