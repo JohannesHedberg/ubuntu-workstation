@@ -276,3 +276,9 @@
   dconf: 
     key: "/org/gnome/shell/extensions/rounded-window-corners/settings-version" 
     value: "'uint32 5'"
+
+- name: gnome-extension rounded corners settings version
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/shell/extensions/ding/show-home" 
+    value: "'false'"
