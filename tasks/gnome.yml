@@ -72,7 +72,7 @@
   become_user: johannes
   dconf: 
     key: "/org/gnome/shell/favorite-apps" 
-    value: "['brave-browser.desktop', 'terminal.desktop', 'code.desktop', 'spotify.desktop']"
+    value: "['brave-browser.desktop', 'org.gnome.Terminal.desktop', 'code.desktop', 'spotify.desktop', 'nordpass_nordpass.desktop']"
 
 - name: copy wallpaper folder
   copy: 
@@ -179,3 +179,99 @@
     chdir: /home/johannes/git/nord-gnome-terminal/src
     creates: /home/johannes/.ansible-flags/terminal_nord_theme_apply
 
+- name: set a bit of transparency in terminal
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/use-transparent-background" 
+    value: "'true'"
+
+- name: set transparency level in terminal
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/background-transparency-percent" 
+    value: "'10'"
+
+- name: set transparency level in terminal
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:scrollbar-policy" 
+    value: "'never'"
+
+- name: copy extensions zip
+  copy: 
+    src: files/gnome-extensions/extensions.zip
+    dest: /home/johannes/.theme/
+    owner: johannes 
+    group: johannes 
+    mode: '0600' 
+    force: no
+  args:
+    creates: /home/johannes/.ansible-flags/gnome-extensions-copy     
+      
+
+- name: extract gnome-extensions.zip
+  unarchive: 
+    src: /home/johannes/.theme/gnome-extensions.zip
+    dest: /home/johannes/.local/share/gnome-shell/extensions/
+  args:
+    creates: /home/johannes/.ansible-flags/gnome-extensions-unzip    
+
+- name: gnome-extension unite extend left box
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/shell/extensions/unite/extend-left-box" 
+    value: "'true'"
+
+- name: gnome-extension unite show activities button
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/shell/extensions/unite/hide-activities-button" 
+    value: "'never'"
+
+- name: gnome-extension unite hide app menu icons
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/shell/extensions/unite/hide-app-menu-icon" 
+    value: "'true'"
+
+- name: gnome-extension unite hide window titlebars
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/shell/extensions/unite/hide-window-titlebars" 
+    value: "'always'"
+
+- name: gnome-extension unite reduce panel spacing
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/shell/extensions/unite/reduce-panel-spacing" 
+    value: "'true'"
+
+- name: gnome-extension unite restrict to primary screen
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/shell/extensions/unite/restrict-to-primary-screen" 
+    value: "'false'"
+
+- name: gnome-extension unite show desktop name
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/shell/extensions/unite/show-desktop-name" 
+    value: "'false'"
+
+- name: gnome-extension unite show window title
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/shell/extensions/unite/show-window-title" 
+    value: "'tiled'"
+
+- name: gnome-extension rounded corners settings
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/shell/extensions/rounded-window-corners/global-rounded-corner-settings" 
+    value: "{'padding': <{'left': <uint32 1>, 'right': <uint32 1>, 'top': <uint32 1>, 'bottom': <uint32 1>}>, 'keep_rounded_corners': <{'maximized': <false>, 'fullscreen': <false>}>, 'border_radius': <uint32 13>, 'smoothing': <uint32 0>, 'enabled': <true>}"
+
+- name: gnome-extension rounded corners settings version
+  become_user: johannes
+  dconf: 
+    key: "/org/gnome/shell/extensions/rounded-window-corners/settings-version" 
+    value: "'uint32 5"

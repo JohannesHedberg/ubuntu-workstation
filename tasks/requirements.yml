@@ -1,5 +1,12 @@
 - name: install requirements
   apt: 
     pkg:
+    - snapd
+    - apt-transport-https
+    - curl
+    - python3-psutil
+    - util-linux    
     - dbus-x11
     - x11-utils
+    - gnome-tweaks
+    - gnome-shell-extensions
