@@ -1,16 +1,10 @@
 - name: install packages
   apt: 
     pkg:
-    - snapd
-    - apt-transport-https
-    - curl
-    - python3-psutil
-    - util-linux
     - brave-browser
     - notepadqq
     - git
     - gh
-    - konsole
     - vim
     - docker
     - fonts-hack-ttf
@@ -24,8 +18,6 @@
     - xsel
     - fd-find
     - fzf
-    - gnome-tweaks
-    - gnome-shell-extensions
     - neofetch
     - bridge-utils
     - cpu-checker
@@ -34,6 +26,7 @@
     - qemu
     - qemu-kvm
     - virt-manager
+
 
 - name: install nordpass via snap
   command: snap install nordpass --classic

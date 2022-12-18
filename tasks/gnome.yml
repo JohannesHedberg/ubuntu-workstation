@@ -95,6 +95,7 @@
     value="'file:///home/johannes/.wallpapers/wallpaper01.jpeg'"
 
 - name: copy profile pic
+  become_user: johannes
   copy: 
     src: files/pictures/johannes.jpg
     dest: /var/lib/AccountsService/icons/johannes
@@ -103,7 +104,7 @@
     mode: '0600'
 
 - name: set profile picture
-  become_user: johannes
+  become: yes
   lineinfile:
     path: /var/lib/AccountsService/users/johannes
     regexp: '^Icon='
@@ -114,20 +115,6 @@
     path: /home/johannes/.theme/
     state: directory
   become_user: johannes
-
-- name: copy konsole theme nord zip
-  copy: 
-    src: files/themes/nord-konsole-develop.tar.gz
-    dest: /home/johannes/.theme
-    owner: johannes
-    group: johannes
-    mode: '0600' 
-    force: no
-
-- name: extract gnome theme nordic zip
-  unarchive: 
-    src: /home/johannes/.theme/nord-konsole-develop.tar.gz
-    dest: /home/johannes/.theme/nord-konsole-develop
 
 - name: set gnome desktop setting show-clock-weekday
   become_user: johannes
@@ -176,15 +163,19 @@
     
 - name: create symbolic link for notepadqq dotfiles
   shell: ln -sv /home/johannes/.dotfiles/Notepadqq /home/johannes/.config/
-  ignore_errors: yes
+  args:
+    creates: /home/johannes/.ansible-flags/notepadqq_dotfiles
 
 - name: clone nord theme for terminal
-  shell: cd ~/git/ && git clone https://github.com/arcticicestudio/nord-gnome-terminal.git && cd nord-gnome-terminal/src && 
+  shell: cd /home/johannes/git/ && git clone https://github.com/arcticicestudio/nord-gnome-terminal.git
   args:
     creates: /home/johannes/.ansible-flags/terminal_nord_theme_clone
+  ignore_errors: yes 
 
 - name: apply nord theme for terminal
-  shell: ./nord.sh -p johannes
+  become_user: johannes
+  shell: ./nord.sh
   args: 
-    creates: /home/johannes/.ansible-flags/terminal_nord_theme_apply 
+    chdir: /home/johannes/git/nord-gnome-terminal/src
+    creates: /home/johannes/.ansible-flags/terminal_nord_theme_apply
 

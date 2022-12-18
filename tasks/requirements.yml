@@ -1,0 +1,5 @@
+- name: install requirements
+  apt: 
+    pkg:
+    - dbus-x11
+    - x11-utils

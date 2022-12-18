@@ -8,6 +8,7 @@
   tasks:
     - include: tasks/users.yml
     - include: tasks/repositories.yml
+    - include: tasks/requirements.yml
     - include: tasks/packages.yml
     - include: tasks/gnome.yml
     - include: tasks/commands.yml
