@@ -90,7 +90,7 @@
   become_user: johannes
   dconf: 
     key="/org/gnome/desktop/background/picture-uri" 
-    value="'file:///home/johannes/.wallpapers/nord-wallpaper01.jpeg'"
+    value="'file:///home/johannes/.wallpapers/nord-wallpaper02.jpeg'"
 
 - name: set lock screen background
   become_user: johannes
