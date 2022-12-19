@@ -90,13 +90,13 @@
   become_user: johannes
   dconf: 
     key="/org/gnome/desktop/background/picture-uri" 
-    value="'file:///home/johannes/.wallpapers/wallpaper01.jpeg'"
+    value="'file:///home/johannes/.wallpapers/nord-wallpaper01.jpeg'"
 
 - name: set lock screen background
   become_user: johannes
   dconf: 
     key="/org/gnome/desktop/screensaver/picture-uri" 
-    value="'file:///home/johannes/.wallpapers/wallpaper01.jpeg'"
+    value="'file:///home/johannes/.wallpapers/wallpaper-aurora05.jpg'"
 
 - name: copy profile pic
   become_user: johannes
