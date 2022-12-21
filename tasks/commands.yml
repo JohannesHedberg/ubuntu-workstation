@@ -1,15 +1,15 @@
 - name: clipboard alias
-  shell: sudo printf '\n#### Alias for xsel -ib (pipes to clipboard) \nalias clipboard="tee >(xsel -ib)"' >> /home/johannes/.bashrc && touch /home/johannes/.ansible-flags/clipboard
+  shell: sudo printf '\n#### Alias for xsel -ib (pipes to clipboard) \nalias clipboard="tee >(xsel -ib)"' >> /home/{{ username }}/.bashrc && touch /home/{{ username }}/.ansible-flags/clipboard
   args: 
-    creates: /home/johannes/.ansible-flags/clipboard
+    creates: /home/{{ username }}/.ansible-flags/clipboard
 
 - name: enable pgup and pgdown to search in bash history
-  shell: sudo printf '\n#enables effective cmd history search using pgup and pgdwn\n"\e[5~"{{ ":" }} history-search-backward \n"\e[6~"{{ ":" }} history-search-forward\n' >> /etc/inputrc && touch /home/johannes/.ansible-flags/bash_history
+  shell: sudo printf '\n#enables effective cmd history search using pgup and pgdwn\n"\e[5~"{{ ":" }} history-search-backward \n"\e[6~"{{ ":" }} history-search-forward\n' >> /etc/inputrc && touch /home/{{ username }}/.ansible-flags/bash_history
   args:
-    creates: /home/johannes/.ansible-flags/bash_history
+    creates: /home/{{ username }}/.ansible-flags/bash_history
 
 - name: enable effective change directory addon using shortcut f
-  shell: sudo printf '\n#enables effective change directory searching using shortcut f\nf () {\n  d=$(fdfind --type directory | fzf)\n  [[ ! -z "$d" ]] && cd $d\n}\n' >> /home/johannes/.bashrc && touch /home/johannes/.ansible-flags/cd-search
+  shell: sudo printf '\n#enables effective change directory searching using shortcut f\nf () {\n  d=$(fdfind --type directory | fzf)\n  [[ ! -z "$d" ]] && cd $d\n}\n' >> /home/{{ username }}/.bashrc && touch /home/{{ username }}/.ansible-flags/cd-search
   args:
-    creates: /home/johannes/.ansible-flags/cd-search
+    creates: /home/{{ username }}/.ansible-flags/cd-search
 

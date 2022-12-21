@@ -1,33 +1,33 @@
 - name: create .ansible-flags directory for keeping state
   file:
-    path: /home/johannes/.ansible-flags
+    path: /home/{{ username }}/.ansible-flags
     state: directory
-  become_user: johannes  
+  become_user: "{{ username }}"
 
 - name: create git repo folder
   file:
-    path: /home/johannes/git
+    path: /home/{{ username }}/git
     state: directory
-  become_user: johannes
+  become_user: "{{ username }}"
 
 - name: copy gnome theme nordic zip
   copy: 
     src: files/themes/nordic.tar.gz
-    dest: /home/johannes/.theme/
-    owner: johannes 
-    group: johannes 
+    dest: /home/{{ username }}/.theme/
+    owner: "{{ username }}" 
+    group: "{{ username }}"
     mode: '0600' 
     force: no
 
 - name: extract gnome theme nordic zip
   unarchive: 
-    src: /home/johannes/.theme/nordic.tar.gz
+    src: /home/{{ username }}/.theme/nordic.tar.gz
     dest: /usr/share/themes
   args:
-    creates: /home/johannes/.ansible-flags/gnome-theme-nordic-zip
+    creates: /home/{{ username }}/.ansible-flags/gnome-theme-nordic-zip
 
 - name: set gnome nordic theme
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/desktop/interface/gtk-theme" 
     value: "'Nordic-bluish-accent-v40'"
@@ -35,45 +35,45 @@
 - name: copy folders icons nordic zip
   copy: 
     src: files/themes/nordic-folders.tar.xz
-    dest: /home/johannes/.theme/
-    owner: johannes 
-    group: johannes 
+    dest: /home/{{ username }}/.theme/
+    owner: "{{ username }}"
+    group: "{{ username }}"
     mode: '0600' 
     force: no
 
 - name: extract gnome theme nordic folders zip
   unarchive: 
-    src: /home/johannes/.theme/nordic-folders.tar.xz
+    src: /home/{{ username }}/.theme/nordic-folders.tar.xz
     dest: /usr/share/icons
   args:
-    creates: /home/johannes/.ansible-flags/gnome-theme-nordic-folders-zip    
+    creates: /home/{{ username }}/.ansible-flags/gnome-theme-nordic-folders-zip    
 
 - name: set gnome nordic theme
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/desktop/interface/icon-theme" 
     value: "'Nordic-bluish'"
 
 - name: set hack font
-  become_user: johannes
+  become_user: {{ username }}
   dconf: 
     key: "/org/gnome/desktop/interface/font-name" 
     value: "'Hack 11'"    
 
 - name: set hack font for documents
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/desktop/interface/document-font-name" 
     value: "'Hack 11'"    
 
 - name: set hack font for titlebars
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/desktop/wm/preferences" 
     value: "'Hack Bold 11'"
 
 - name: set some apps as favorite
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/favorite-apps" 
     value: "['brave-browser.desktop', 'org.gnome.Terminal.desktop', 'code.desktop', 'spotify.desktop', 'nordpass_nordpass.desktop']"
@@ -81,77 +81,77 @@
 - name: copy wallpaper folder
   copy: 
     src: files/wallpapers/ 
-    dest: /home/johannes/.wallpapers/ 
-    owner: johannes 
-    group: johannes 
+    dest: /home/{{ username }}/.wallpapers/ 
+    owner: "{{ username }}"
+    group: "{{ username }}"
     mode: '0600'
 
 - name: set wallpaper
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key="/org/gnome/desktop/background/picture-uri" 
-    value="'file:///home/johannes/.wallpapers/nord-wallpaper02.jpeg'"
+    value="'file:///home/{{ username }}/.wallpapers/nord-wallpaper02.jpeg'"
 
 - name: set lock screen background
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key="/org/gnome/desktop/screensaver/picture-uri" 
-    value="'file:///home/johannes/.wallpapers/wallpaper-aurora05.jpg'"
+    value="'file:///home/{{ username }}/.wallpapers/wallpaper-aurora05.jpg'"
 
 - name: copy profile pic
-  become_user: johannes
+  become_user: "{{ username }}"
   copy: 
     src: files/pictures/johannes.jpg
     dest: /var/lib/AccountsService/icons/johannes
-    owner: johannes 
-    group: johannes 
+    owner: "{{ username }}"
+    group: "{{ username }}"
     mode: '0600'
 
 - name: set profile picture
   become: yes
   lineinfile:
-    path: /var/lib/AccountsService/users/johannes
+    path: /var/lib/AccountsService/users/{{ username }}
     regexp: '^Icon='
     line: 'Icon=/var/lib/AccountsService/icons/johannes'
 
 - name: create theme folder for theme related stuff
   file:
-    path: /home/johannes/.theme/
+    path: /home/{{ username }}/.theme/
     state: directory
-  become_user: johannes
+  become_user: "{{ username }}"
 
 - name: set gnome desktop setting show-clock-weekday
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/desktop/interface/clock-show-weekday" 
     value: "true"
 
 - name: set gnome desktop dock to bottom
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/dash-to-dock/dock-position" 
     value: "'BOTTOM'"
 
 - name: set gnome desktop dock to multi-monitor
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/dash-to-dock/multi-monitor" 
     value: "true"
 
 - name: set gnome desktop dock to hide trashcan
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/dash-to-dock/show-trash" 
     value: "false"
 
 - name: set gnome desktop dock to extend-height false
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/dash-to-dock/extend-height" 
     value: "false"
 
 - name: set gnome desktop dock to fixed icon size 48
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/dash-to-dock/dash-max-icon-size" 
     value: "48"
@@ -159,44 +159,44 @@
 - name: copy dotfiles
   copy: 
     src: files/dotfiles/
-    dest: /home/johannes/.dotfiles/
-    owner: johannes 
-    group: johannes 
+    dest: /home/{{ username }}/.dotfiles/
+    owner: "{{ username }}"
+    group: "{{ username }}"
     mode: '0600'
     force: no
     
 - name: create symbolic link for notepadqq dotfiles
-  shell: ln -sv /home/johannes/.dotfiles/Notepadqq /home/johannes/.config/
+  shell: ln -sv /home/{{ username }}/.dotfiles/Notepadqq /home/{{ username }}/.config/
   args:
-    creates: /home/johannes/.ansible-flags/notepadqq_dotfiles
+    creates: /home/{{ username }}/.ansible-flags/notepadqq_dotfiles
 
 - name: clone nord theme for terminal
-  shell: cd /home/johannes/git/ && git clone https://github.com/arcticicestudio/nord-gnome-terminal.git
+  shell: cd /home/{{ username }}/git/ && git clone https://github.com/arcticicestudio/nord-gnome-terminal.git
   args:
-    creates: /home/johannes/.ansible-flags/terminal_nord_theme_clone
+    creates: /home/{{ username }}/.ansible-flags/terminal_nord_theme_clone
   ignore_errors: yes 
 
 - name: apply nord theme for terminal
-  become_user: johannes
+  become_user: "{{ username }}"
   shell: ./nord.sh
   args: 
-    chdir: /home/johannes/git/nord-gnome-terminal/src
-    creates: /home/johannes/.ansible-flags/terminal_nord_theme_apply
+    chdir: /home/{{ username }}/git/nord-gnome-terminal/src
+    creates: /home/{{ username }}/.ansible-flags/terminal_nord_theme_apply
 
 - name: set a bit of transparency in terminal
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/terminal/legacy/profiles:/use-transparent-background" 
     value: "'true'"
 
 - name: set transparency level in terminal
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/terminal/legacy/profiles:/background-transparency-percent" 
     value: "'10'"
 
 - name: set transparency level in terminal
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/terminal/legacy/profiles:scrollbar-policy" 
     value: "'never'"
@@ -204,87 +204,87 @@
 - name: copy extensions zip
   copy: 
     src: files/gnome-extensions/extensions.zip
-    dest: /home/johannes/.theme/
-    owner: johannes 
-    group: johannes 
+    dest: /home/{{ username }}/.theme/
+    owner: "{{ username }}"
+    group: "{{ username }}"
     mode: '0600' 
     force: no
 
 - name: extract gnome-extensions.zip
   unarchive: 
-    src: /home/johannes/.theme/extensions.zip
-    dest: /home/johannes/.local/share/gnome-shell/extensions/
+    src: /home/{{ username }}/.theme/extensions.zip
+    dest: /home/{{ username }}/.local/share/gnome-shell/extensions/
   args:
-    creates: /home/johannes/.ansible-flags/gnome-extensions-unzip
+    creates: /home/{{ username }}/.ansible-flags/gnome-extensions-unzip
 
 - name: gnome-extension unite extend left box
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/unite/extend-left-box" 
     value: "'true'"
 
 - name: gnome-extension unite show activities button
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/unite/hide-activities-button" 
     value: "'always'"
 
 - name: gnome-extension unite hide app menu icons
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/unite/hide-app-menu-icon" 
     value: "'true'"
 
 - name: gnome-extension unite hide window titlebars
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/unite/hide-window-titlebars" 
     value: "'always'"
 
 - name: gnome-extension unite reduce panel spacing
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/unite/reduce-panel-spacing" 
     value: "'true'"
 
 - name: gnome-extension unite restrict to primary screen
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/unite/restrict-to-primary-screen" 
     value: "'false'"
 
 - name: gnome-extension unite show desktop name
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/unite/show-desktop-name" 
     value: "'false'"
 
 - name: gnome-extension unite show window title
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/unite/show-window-title" 
     value: "'tiled'"
 
 - name: gnome-extension rounded corners settings
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/rounded-window-corners/global-rounded-corner-settings" 
     value: "{'padding': <{'left': <uint32 1>, 'right': <uint32 1>, 'top': <uint32 1>, 'bottom': <uint32 1>}>, 'keep_rounded_corners': <{'maximized': <false>, 'fullscreen': <false>}>, 'border_radius': <uint32 13>, 'smoothing': <uint32 0>, 'enabled': <true>}"
 
 - name: gnome-extension rounded corners settings version
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/rounded-window-corners/settings-version" 
     value: "'uint32 5'"
 
 - name: hide home folder on desktop
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/ding/show-home" 
     value: "'false'"
 
 - name: enable hot corner top left - activities
-  become_user: johannes
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/desktop/interface/enable-hot-corners" 
     value: "'true'"
