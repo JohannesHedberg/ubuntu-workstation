@@ -34,26 +34,3 @@
 - name: install vscode via snap
   command: snap install code --classic
 
-# teams
-- name: check if teams is installed
-  command: dpkg-query -W teams
-  register: teams_check_deb
-  failed_when: teams_check_deb.rc > 1
-  changed_when: teams_check_deb.rc == 1
-
-- name: create teams directory
-  file: 
-    path: /home/{{ username }}/Downloads/.teams-deb
-    state: directory 
-  when: teams_check_deb.rc == 1    
-
-- name: download teams deb
-  get_url: 
-    url: https://packages.microsoft.com/repos/ms-teams/pool/main/t/teams/teams_1.3.00.5153_amd64.deb 
-    dest: /home/{{ username }}/Downloads/.teams-deb/teams.deb
-  when: teams_check_deb.rc == 1
-
-- name: install teams
-  apt: deb="/home/{{ username }}/Downloads/.teams-deb/teams.deb"
-  when: teams_check_deb.rc == 1
-
