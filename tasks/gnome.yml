@@ -55,7 +55,7 @@
     value: "'Nordic-bluish'"
 
 - name: set hack font
-  become_user: {{ username }}
+  become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/desktop/interface/font-name" 
     value: "'Hack 11'"    
