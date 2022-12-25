@@ -15,9 +15,9 @@
     - nmap
     - flameshot
     - tree
-    - xsel
-    - fd-find
-    - fzf
+    - xsel # required for copying to clipboard with "| clipboard"
+    - fd-find # required for searching history with f
+    - fzf # required for searching history with f 
     - neofetch
     - bridge-utils
     - cpu-checker
