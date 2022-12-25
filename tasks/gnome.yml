@@ -291,7 +291,8 @@
 
 - name: download tool for gdm login screen background
   become_user: "{{ username }}"
-  get_url: https://github.com/PRATAP-KUMAR/ubuntu-gdm-set-background/archive/main.tar.gz
+  get_url: 
+    url: https://github.com/PRATAP-KUMAR/ubuntu-gdm-set-background/archive/main.tar.gz
     dest: /home/{{ username }}/Downloads/
   args:
     creates: /home/{{ username }}/.ansible-flags/gdm-loginscreen-download
