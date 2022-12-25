@@ -313,6 +313,12 @@
     creates: /home/{{ username }}/.ansible-flags/gdm-loginscreen-set
   ignore_errors: yes
 
+- name: disable lock screen notifications
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/desktop/notifications/show-in-lock-screen"
+    value: "'false'"
+
 - name: set list view as default in nautilus
   become_user: "{{ username }}"
   dconf: 
