@@ -10,3 +10,4 @@
     - x11-utils
     - gnome-tweaks
     - gnome-shell-extensions
+    - libglib2.0-dev-bin #needed for gdm login screen background tool

@@ -294,21 +294,29 @@
   get_url: 
     url: https://github.com/PRATAP-KUMAR/ubuntu-gdm-set-background/archive/main.tar.gz
     dest: /home/{{ username }}/Downloads/
-  args:
-    creates: /home/{{ username }}/.ansible-flags/gdm-loginscreen-download
+    force: false
 
 - name: unzip tool for gdm login screen background
   become_user: "{{ username }}"
   unarchive:
     src: /home/{{ username }}/Downloads/ubuntu-gdm-set-background-main.tar.gz
-    dst: /home/{{ username }}/Downloads/
+    dest: /home/{{ username }}/Downloads/
   args:
     creates: /home/{{ username }}/.ansible-flags/gdm-loginscreen-unzip
 
 - name: set gdm login screen background
   become: yes
-  chdir: /home/{{ username }}/Downloads/ubuntu-gdm-set-background-main/
-  shell: ./ubuntu-gdm-set-background --image /home/{{ username }}/git/ubuntu-workstation/files/wallpapers/nord-wallpaper01-blurred.png
+  shell: 
+    cmd: ./ubuntu-gdm-set-background --image /home/{{ username }}/git/ubuntu-workstation/files/wallpapers/nord-wallpaper01-blurred.png
+    chdir: /home/{{ username }}/Downloads/ubuntu-gdm-set-background-main/
   args:
     creates: /home/{{ username }}/.ansible-flags/gdm-loginscreen-set
+  ignore_errors: yes
+
+- name: set list view as default in nautilus
+  become_user: "{{ username }}"
+  dconf: 
+    key: "org/gnome/nautilus/preferences/default-folder-viewer" 
+    value: "'list-view'"
+  
 
