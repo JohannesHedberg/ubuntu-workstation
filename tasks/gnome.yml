@@ -335,5 +335,5 @@
   become_user: "{{ username }}"
   dconf:
     key: "/org/gnome/shell/enabled-extensions"
-    value: "'unite@hardpixel.eu', 'rounded-window-corners@yilozt', 'blur-my-shell@aunetx', 'custom-hot-corners-extended@G-dH.github.com'"
+    value: "['unite@hardpixel.eu', 'rounded-window-corners@yilozt', 'blur-my-shell@aunetx', 'custom-hot-corners-extended@G-dH.github.com']"
 
