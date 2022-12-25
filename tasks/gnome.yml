@@ -84,13 +84,13 @@
     dest: /home/{{ username }}/.wallpapers/ 
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: '0600'
+    mode: '0604'
 
 - name: set wallpaper
   become_user: "{{ username }}"
   dconf: 
     key="/org/gnome/desktop/background/picture-uri" 
-    value="'file:///home/{{ username }}/.wallpapers/nord-wallpaper02.jpeg'"
+    value="'file:///home/{{ username }}/.wallpapers/nord-wallpaper02.jpg'"
 
 - name: set lock screen background
   become_user: "{{ username }}"
@@ -105,7 +105,7 @@
     dest: /var/lib/AccountsService/icons/johannes
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: '0600'
+    mode: '0604'
 
 - name: set profile picture
   become: yes
@@ -283,11 +283,11 @@
     key: "/org/gnome/shell/extensions/ding/show-home" 
     value: "'false'"
 
-- name: enable hot corner top left - activities
+- name: enable hot corner top left
   become_user: "{{ username }}"
   dconf: 
-    key: "/org/gnome/desktop/interface/enable-hot-corners" 
-    value: "'true'"
+    key: "/org/gnome/desktop/interface/enable-hot-corners"
+    value : "'true'"
 
 - name: download tool for gdm login screen background
   become_user: "{{ username }}"
@@ -316,7 +316,24 @@
 - name: set list view as default in nautilus
   become_user: "{{ username }}"
   dconf: 
-    key: "org/gnome/nautilus/preferences/default-folder-viewer" 
+    key: "/org/gnome/nautilus/preferences/default-folder-viewer" 
     value: "'list-view'"
-  
+
+- name: hot corners lower left
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-bottom-left-0/action"
+    value: "'show-desktop-mon'"
+
+- name: hot corners top left
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-0/action"
+    value: "'toggle-overview'"
+
+- name: enable extensions
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/shell/enabled-extensions"
+    value: "'unite@hardpixel.eu', 'rounded-window-corners@yilozt', 'blur-my-shell@aunetx', 'custom-hot-corners-extended@G-dH.github.com'"
 
