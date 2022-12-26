@@ -2,7 +2,6 @@
   apt: 
     pkg:
     - brave-browser
-    - notepadqq
     - git
     - gh
     - vim
