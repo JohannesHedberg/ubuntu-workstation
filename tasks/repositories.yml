@@ -36,3 +36,10 @@
     state: present
     filename: spotify-client
     update_cache: yes
+
+# papirus icon theme
+- name: add papirus apt repository
+  apt_repository:
+    repo: 'ppa:papirus/papirus'
+    state: present
+    update_cache: true

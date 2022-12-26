@@ -26,6 +26,7 @@
     - qemu
     - qemu-kvm
     - virt-manager
+    - papirus-icon-theme
 
 
 - name: install nordpass via snap

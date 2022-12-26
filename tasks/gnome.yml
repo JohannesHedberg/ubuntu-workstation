@@ -48,11 +48,42 @@
   args:
     creates: /home/{{ username }}/.ansible-flags/gnome-theme-nordic-folders-zip    
 
-- name: set gnome nordic theme
+- name: set gnome papirus icon theme
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/desktop/interface/icon-theme" 
-    value: "'Nordic-bluish'"
+    value: "'Papirus'"
+
+- name: copy papirus directory icons
+  copy: 
+    src: files/themes/papirus-nord.tar.xz
+    dest: /home/{{ username }}/.theme/papirus-nord-icons/
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: '0600' 
+    force: no
+
+- name: extract gnome theme papirus nord folders zip
+  unarchive: 
+    src: /home/{{ username }}/.theme/papirus-nord-icons/papirus-nord.tar.xz
+    dest: /home/{{ username }}/.theme/papirus-nord-icons/
+  args:
+    creates: /home/{{ username }}/.ansible-flags/gnome-theme-papirus-nord-zip    
+
+- name: install gnome theme papirus nord folders zip
+  become: yes
+  shell:
+    cmd: /home/{{ username }}/.theme/papirus-nord-icons/install
+  args:
+    creates: /home/{{ username }}/.ansible-flags/gnome-theme-papirus-nord-install
+
+- name: install gnome theme papirus nord folders zip
+  become: yes
+  shell:
+    cmd: /home/{{ username }}/.theme/papirus-nord-icons/papirus-folders -C black
+  args:
+    creates: /home/{{ username }}/.ansible-flags/gnome-theme-papirus-nord-set-black  
+
 
 - name: set hack font
   become_user: "{{ username }}"
@@ -342,4 +373,10 @@
   dconf:
     key: "/org/gnome/shell/enabled-extensions"
     value: "['unite@hardpixel.eu', 'rounded-window-corners@yilozt', 'blur-my-shell@aunetx', 'custom-hot-corners-extended@G-dH.github.com']"
+
+- name: set gnome nord icon theme # setting nord over papirus (line 51) doesn't overwrite all of papirus icons, which is the wanted behaviour (directory folders are overwritten)
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/desktop/interface/icon-theme" 
+    value: "'Nordic-darker'"
 
