@@ -107,7 +107,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/favorite-apps" 
-    value: "['brave-browser.desktop', 'org.gnome.Terminal.desktop', 'code.desktop', 'spotify.desktop', 'nordpass_nordpass.desktop']"
+    value: "['brave-browser.desktop', 'org.gnome.Terminal.desktop', 'code.desktop', 'spotify.desktop', 'nordpass_nordpass.desktop', 'org.gnome.Nautilus.desktop']"
 
 - name: copy wallpaper folder
   copy: 
@@ -195,11 +195,6 @@
     group: "{{ username }}"
     mode: '0600'
     force: no
-    
-- name: create symbolic link for notepadqq dotfiles
-  shell: ln -sv /home/{{ username }}/.dotfiles/Notepadqq /home/{{ username }}/.config/
-  args:
-    creates: /home/{{ username }}/.ansible-flags/notepadqq_dotfiles
 
 - name: clone nord theme for terminal
   shell: cd /home/{{ username }}/git/ && git clone https://github.com/arcticicestudio/nord-gnome-terminal.git
