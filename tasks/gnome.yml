@@ -381,6 +381,12 @@
     key: "/org/gnome/shell/extensions/aylurs-widgets/background-clock" 
     value: "false"
 
+- name: gnome-extension aylurs widget battery bar offset
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-offset" 
+    value: "7"
+
 - name: gnome-extension aylurs widget battery bar true
   become_user: "{{ username }}"
   dconf: 
@@ -451,7 +457,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/aylurs-widgets/date-menu-position" 
-    value: "2"
+    value: "1"
 
 - name: gnome-extension aylurs widget media player false
   become_user: "{{ username }}"
@@ -463,7 +469,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/aylurs-widgets/notification-indicator-offset" 
-    value: "0"
+    value: "4"
 
 - name: gnome-extension aylurs widget notification-indicator-position
   become_user: "{{ username }}"
