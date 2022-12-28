@@ -219,7 +219,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/terminal/legacy/profiles:/background-transparency-percent" 
-    value: "'10'"
+    value: "'19'"
 
 - name: set transparency level in terminal
   become_user: "{{ username }}"
@@ -291,6 +291,78 @@
     key: "/org/gnome/shell/extensions/unite/show-window-title" 
     value: "'tiled'"
 
+- name: blur-my-shell panel true
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/panel/blur" 
+    value: "'true'"  
+
+- name: blur-my-shell panel brightness
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/panel/brightness" 
+    value: "1.0"
+
+- name: blur-my-shell panel customize
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/panel/customize" 
+    value: "true"
+
+- name: blur-my-shell panel sigma
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/panel/sigma" 
+    value: "0"
+
+- name: blur-my-shell panel override-background
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/panel/override-background" 
+    value: "'true'"
+
+- name: blur-my-shell applications true
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/applications/blur" 
+    value: "true"
+
+- name: blur-my-shell applications brigthness
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/applications/brightness" 
+    value: "1.0"
+
+- name: blur-my-shell applications customize true
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/applications/customize" 
+    value: "true"
+
+- name: blur-my-shell applications enable all false
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/applications/enable-all" 
+    value: "false"
+
+- name: blur-my-shell applications opacity
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/applications/opacity" 
+    value: "230"
+
+- name: blur-my-shell applications sigma
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/applications/sigma" 
+    value: "30"
+
+- name: blur-my-shell applications whitelist
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/applications/whitelist" 
+    value: "['Brave-browser', 'org.gnome.Nautilus']"
+
 - name: gnome-extension rounded corners settings
   become_user: "{{ username }}"
   dconf: 
@@ -303,11 +375,125 @@
     key: "/org/gnome/shell/extensions/rounded-window-corners/settings-version" 
     value: "'uint32 5'"
 
+- name: gnome-extension aylurs widget disable background clock
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/background-clock" 
+    value: "false"
+
+- name: gnome-extension aylurs widget battery bar true
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar" 
+    value: "'true'"
+
+- name: gnome-extension aylurs widget battery bar charging color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-charging-color" 
+    value: "'rgb(143,240,164)'"
+
+- name: gnome-extension aylurs widget battery bar color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-color" 
+    value: "'rgb(153,193,241)'"
+
+- name: gnome-extension aylurs widget battery bar height
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-height" 
+    value: "20"
+
+- name: gnome-extension aylurs widget battery bar low color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-low-color" 
+    value: "'rbg(246,97,81)'"
+
+- name: gnome-extension aylurs widget battery bar offset
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-offset" 
+    value: "'9'"
+
+- name: gnome-extension aylurs widget battery bar icon false
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-show-icon" 
+    value: "false"
+
+- name: gnome-extension aylurs widget battery bar width
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-width" 
+    value: "'140'"
+
+- name: gnome-extension aylurs widget dashboard false
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/dash-board" 
+    value: "false"
+
+- name: gnome-extension aylurs widget date meny custom false
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/date-menu-custom-menu" 
+    value: "'false'"
+
+- name: gnome-extension aylurs widget date menu offset
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/date-menu-offset" 
+    value: "0"
+
+- name: gnome-extension aylurs widget date-menu-position
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/date-menu-position" 
+    value: "2"
+
+- name: gnome-extension aylurs widget media player false
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/media-player" 
+    value: "false"
+
+- name: gnome-extension aylurs widget notification indicator offset
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/notification-indicator-offset" 
+    value: "0"
+
+- name: gnome-extension aylurs widget notification-indicator-position
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/notificaion-indicator-position" 
+    value: "2"
+
+- name: gnome-extension aylurs widget power menu false
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/power-menu" 
+    value: "false"
+
+- name: gnome-extension aylurs widget workspace-indicator false
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/workspace-indicator" 
+    value: "false"
+
+- name: gnome-extension aylurs widget battery bar offset
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-offset" 
+    value: "9"
+
 - name: hide home folder on desktop
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/ding/show-home" 
-    value: "'false'"
+    value: "false"
 
 - name: enable hot corner top left
   become_user: "{{ username }}"
@@ -367,7 +553,7 @@
   become_user: "{{ username }}"
   dconf:
     key: "/org/gnome/shell/enabled-extensions"
-    value: "['unite@hardpixel.eu', 'rounded-window-corners@yilozt', 'blur-my-shell@aunetx', 'custom-hot-corners-extended@G-dH.github.com']"
+    value: "['unite@hardpixel.eu', 'rounded-window-corners@yilozt', 'blur-my-shell@aunetx', 'custom-hot-corners-extended@G-dH.github.com', 'widgets@aylur']"
 
 - name: set gnome nord icon theme # setting nord over papirus (line 51) doesn't overwrite all of papirus icons, which is the wanted behaviour (directory folders are overwritten)
   become_user: "{{ username }}"
