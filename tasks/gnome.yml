@@ -361,7 +361,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/blur-my-shell/applications/whitelist" 
-    value: "['Brave-browser', 'org.gnome.Nautilus']"
+    value: "['Brave-browser', 'org.gnome.Nautilus', 'gedit']"
 
 - name: gnome-extension rounded corners settings
   become_user: "{{ username }}"
