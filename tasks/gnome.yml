@@ -349,7 +349,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/blur-my-shell/applications/opacity" 
-    value: "230"
+    value: "200"
 
 - name: blur-my-shell applications sigma
   become_user: "{{ username }}"
