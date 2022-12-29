@@ -495,6 +495,12 @@
     key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-offset" 
     value: "9"
 
+- name: gnome-extension aylurs widget battery bar font color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-font-color" 
+    value: "'rgb(255,255,255)'"
+
 - name: hide home folder on desktop
   become_user: "{{ username }}"
   dconf: 
