@@ -121,7 +121,7 @@
   become_user: "{{ username }}"
   dconf: 
     key="/org/gnome/desktop/background/picture-uri" 
-    value="'file:///home/{{ username }}/.wallpapers/nord-wallpaper02.jpg'"
+    value="'file:///home/{{ username }}/.wallpapers/nord-wallpaper04.jpg'"
 
 - name: set lock screen background
   become_user: "{{ username }}"
