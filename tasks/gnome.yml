@@ -531,7 +531,7 @@
 - name: set gdm login screen background
   become: yes
   shell: 
-    cmd: ./ubuntu-gdm-set-background --image /home/{{ username }}/git/ubuntu-workstation/files/wallpapers/nord-wallpaper01-blurred.png
+    cmd: ./ubuntu-gdm-set-background --image /home/{{ username }}/git/ubuntu-workstation/files/wallpapers/nord-wallpaper04-blurred.png
     chdir: /home/{{ username }}/Downloads/ubuntu-gdm-set-background-main/
   args:
     creates: /home/{{ username }}/.ansible-flags/gdm-loginscreen-set
