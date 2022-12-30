@@ -501,6 +501,36 @@
     key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-font-color" 
     value: "'rgb(255,255,255)'"
 
+- name: disable default key binding for screenshot
+  become_user: "{{ username }}"
+  dconf: 
+    key: "org/gnome/shell/keybindings/show-screenshot-ui" 
+    value: "@as []"
+
+- name: enable custom key binding for flameshot
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" 
+    value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
+
+- name: set custom key binding for flameshot binding
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding" 
+    value: "'Print'"
+
+- name: set custom key binding for flameshot command
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" 
+    value: "'/usr/bin/flameshot gui'"
+
+- name: set custom key binding for flameshot name
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name" 
+    value: "'Flameshot'"
+
 - name: hide home folder on desktop
   become_user: "{{ username }}"
   dconf: 
