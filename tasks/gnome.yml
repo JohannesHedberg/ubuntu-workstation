@@ -23,8 +23,6 @@
   unarchive: 
     src: /home/{{ username }}/.theme/nordic.tar.gz
     dest: /usr/share/themes
-  args:
-    creates: /home/{{ username }}/.ansible-flags/gnome-theme-nordic-zip
 
 - name: set gnome nordic theme
   become_user: "{{ username }}"
@@ -45,8 +43,6 @@
   unarchive: 
     src: /home/{{ username }}/.theme/nordic-folders.tar.xz
     dest: /usr/share/icons
-  args:
-    creates: /home/{{ username }}/.ansible-flags/gnome-theme-nordic-folders-zip    
 
 - name: set gnome papirus icon theme
   become_user: "{{ username }}"
@@ -67,22 +63,20 @@
   unarchive: 
     src: /home/{{ username }}/.theme/papirus-nord-icons/papirus-nord.tar.xz
     dest: /home/{{ username }}/.theme/papirus-nord-icons/
-  args:
-    creates: /home/{{ username }}/.ansible-flags/gnome-theme-papirus-nord-zip    
 
 - name: install gnome theme papirus nord folders zip
   become: yes
   shell:
-    cmd: /home/{{ username }}/.theme/papirus-nord-icons/install
+    cmd: /home/{{ username }}/.theme/papirus-nord-icons/install && touch /home/{{ username }}/.ansible-flags/gnome-theme-papirus-nord-install
   args:
     creates: /home/{{ username }}/.ansible-flags/gnome-theme-papirus-nord-install
 
 - name: install gnome theme papirus nord folders zip
   become: yes
   shell:
-    cmd: /home/{{ username }}/.theme/papirus-nord-icons/papirus-folders -C black
+    cmd: /home/{{ username }}/.theme/papirus-nord-icons/papirus-folders -C black && touch /home/{{ username }}/.ansible-flags/gnome-theme-papirus-nord-set-black
   args:
-    creates: /home/{{ username }}/.ansible-flags/gnome-theme-papirus-nord-set-black  
+    creates: /home/{{ username }}/.ansible-flags/gnome-theme-papirus-nord-set-black
 
 
 - name: set hack font
@@ -196,15 +190,33 @@
     mode: '0600'
     force: no
 
+- name: create symbolic link for oh my zsh dotfile
+  become: yes
+  shell: ln -s /home/{{ username }}/.dotfiles/.zshrc /home/{{ username }}/.zshrc && touch /home/{{ username }}/.ansible-flags/oh_my_zsh_dotfile
+  args:
+    creates: /home/{{ username }}/.ansible-flags/oh_my_zsh_dotfile
+
+- name: install oh my zsh
+  become_user: "{{ username }}"
+  shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended" && touch /home/{{ username }}/.ansible-flags/oh_my_zsh_installed
+  args:
+    creates: /home/{{ username }}/.ansible-flags/oh_my_zsh_installed
+
+- name: set zsh as default shell
+  become: yes
+  shell: chsh -s $(which zsh) {{ username }} && touch /home/{{ username }}/.ansible-flags/oh_my_zsh_default_shell
+  args:
+    creates: /home/{{ username }}/.ansible-flags/oh_my_zsh_default_shell
+
 - name: clone nord theme for terminal
-  shell: cd /home/{{ username }}/git/ && git clone https://github.com/arcticicestudio/nord-gnome-terminal.git
+  shell: cd /home/{{ username }}/git/ && git clone https://github.com/arcticicestudio/nord-gnome-terminal.git && /home/{{ username }}/.ansible-flags/terminal_nord_theme_clone
   args:
     creates: /home/{{ username }}/.ansible-flags/terminal_nord_theme_clone
   ignore_errors: yes 
 
 - name: apply nord theme for terminal
   become_user: "{{ username }}"
-  shell: ./nord.sh
+  shell: ./nord.sh && touch /home/{{ username }}/.ansible-flags/terminal_nord_theme_apply
   args: 
     chdir: /home/{{ username }}/git/nord-gnome-terminal/src
     creates: /home/{{ username }}/.ansible-flags/terminal_nord_theme_apply
@@ -240,8 +252,6 @@
   unarchive: 
     src: /home/{{ username }}/.theme/extensions.zip
     dest: /home/{{ username }}/.local/share/gnome-shell/extensions/
-  args:
-    creates: /home/{{ username }}/.ansible-flags/gnome-extensions-unzip
 
 - name: gnome-extension unite extend left box
   become_user: "{{ username }}"
@@ -504,7 +514,7 @@
 - name: disable default key binding for screenshot
   become_user: "{{ username }}"
   dconf: 
-    key: "org/gnome/shell/keybindings/show-screenshot-ui" 
+    key: "/org/gnome/shell/keybindings/show-screenshot-ui" 
     value: "@as []"
 
 - name: enable custom key binding for flameshot
@@ -555,16 +565,12 @@
   unarchive:
     src: /home/{{ username }}/Downloads/ubuntu-gdm-set-background-main.tar.gz
     dest: /home/{{ username }}/Downloads/
-  args:
-    creates: /home/{{ username }}/.ansible-flags/gdm-loginscreen-unzip
 
 - name: set gdm login screen background
   become: yes
   shell: 
     cmd: ./ubuntu-gdm-set-background --image /home/{{ username }}/git/ubuntu-workstation/files/wallpapers/nord-wallpaper04-blurred.png
     chdir: /home/{{ username }}/Downloads/ubuntu-gdm-set-background-main/
-  args:
-    creates: /home/{{ username }}/.ansible-flags/gdm-loginscreen-set
   ignore_errors: yes
 
 - name: disable lock screen notifications
