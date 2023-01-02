@@ -239,6 +239,18 @@
     key: "/org/gnome/terminal/legacy/profiles:scrollbar-policy" 
     value: "'never'"
 
+- name: disable default font in gedit
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/gedit/preferences/editor/use-default-font" 
+    value: "false"
+
+- name: set font in gedit
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/gedit/preferences/editor/editor-font" 
+    value: "'Hack 12'"
+
 - name: copy extensions zip
   copy: 
     src: files/gnome-extensions/extensions.zip
@@ -337,12 +349,6 @@
     key: "/org/gnome/shell/extensions/blur-my-shell/applications/blur" 
     value: "true"
 
-- name: blur-my-shell applications brigthness
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/blur-my-shell/applications/brightness" 
-    value: "1.0"
-
 - name: blur-my-shell applications customize true
   become_user: "{{ username }}"
   dconf: 
@@ -359,13 +365,19 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/blur-my-shell/applications/opacity" 
-    value: "200"
+    value: "240"
 
 - name: blur-my-shell applications sigma
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/blur-my-shell/applications/sigma" 
     value: "30"
+
+- name: blur-my-shell applications brightness
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/applications/brightness" 
+    value: "0.6"
 
 - name: blur-my-shell applications whitelist
   become_user: "{{ username }}"
@@ -403,7 +415,7 @@
     key: "/org/gnome/shell/extensions/aylurs-widgets/clock-menu-position-offset" 
     value: "0"
 
-- name: gnome-extension aylurs widget battery bar offset
+- name: gnome-extension aylurs widget battery bar position
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-position" 
@@ -413,7 +425,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-offset" 
-    value: "4"
+    value: "5"
 
 - name: gnome-extension aylurs widget battery bar true
   become_user: "{{ username }}"
