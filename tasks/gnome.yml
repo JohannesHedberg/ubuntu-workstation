@@ -225,13 +225,13 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/terminal/legacy/profiles:/use-transparent-background" 
-    value: "'true'"
+    value: "true"
 
 - name: set transparency level in terminal
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/terminal/legacy/profiles:/background-transparency-percent" 
-    value: "'15'"
+    value: "15"
 
 - name: set transparency level in terminal
   become_user: "{{ username }}"
