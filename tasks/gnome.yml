@@ -347,7 +347,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/blur-my-shell/applications/blur" 
-    value: "true"
+    value: "false"
 
 - name: blur-my-shell applications customize true
   become_user: "{{ username }}"
@@ -533,7 +533,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/aylurs-widgets/notification-indicator-offset" 
-    value: "4"
+    value: "5"
 
 - name: gnome-extension aylurs widget notification-indicator-position
   become_user: "{{ username }}"
