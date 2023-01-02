@@ -403,6 +403,11 @@
     key: "/org/gnome/shell/extensions/aylurs-widgets/clock-menu-position-offset" 
     value: "0"
 
+- name: gnome-extension aylurs widget battery bar offset
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-position" 
+    value: "2"
 
 - name: gnome-extension aylurs widget battery bar offset
   become_user: "{{ username }}"
@@ -439,12 +444,6 @@
   dconf: 
     key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-low-color" 
     value: "'rbg(246,97,81)'"
-
-- name: gnome-extension aylurs widget battery bar offset
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-offset" 
-    value: "'7'"
 
 - name: gnome-extension aylurs widget battery bar icon false
   become_user: "{{ username }}"
@@ -541,12 +540,6 @@
   dconf: 
     key: "/org/gnome/shell/extensions/aylurs-widgets/workspace-indicator" 
     value: "false"
-
-- name: gnome-extension aylurs widget battery bar offset
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-offset" 
-    value: "9"
 
 - name: gnome-extension aylurs widget battery bar font color
   become_user: "{{ username }}"
