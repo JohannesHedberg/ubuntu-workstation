@@ -491,7 +491,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/aylurs-widgets/date-menu-position" 
-    value: "1"
+    value: "2"
 
 - name: gnome-extension aylurs widget media player enabled
   become_user: "{{ username }}"
