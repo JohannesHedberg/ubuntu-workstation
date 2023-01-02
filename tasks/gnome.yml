@@ -231,7 +231,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/terminal/legacy/profiles:/background-transparency-percent" 
-    value: "'19'"
+    value: "'15'"
 
 - name: set transparency level in terminal
   become_user: "{{ username }}"
@@ -482,11 +482,41 @@
     key: "/org/gnome/shell/extensions/aylurs-widgets/date-menu-position" 
     value: "1"
 
-- name: gnome-extension aylurs widget media player false
+- name: gnome-extension aylurs widget media player enabled
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/aylurs-widgets/media-player" 
+    value: "true"
+
+- name: gnome-extension aylurs widget media player controls disabled
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/media-player-enable-controls" 
     value: "false"
+
+- name: gnome-extension aylurs widget media player position
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/media-player-position" 
+    value: "1"
+
+- name: gnome-extension aylurs widget media player show loop shuffle enabled
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/media-player-show-loop-shuffle" 
+    value: "true"
+
+- name: gnome-extension aylurs widget media player show volume enabled
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/media-player-show-volume" 
+    value: "true"
+
+- name: gnome-extension aylurs widget media player style
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/media-player-style" 
+    value: "0"
 
 - name: gnome-extension aylurs widget notification indicator offset
   become_user: "{{ username }}"
