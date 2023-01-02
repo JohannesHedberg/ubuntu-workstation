@@ -121,7 +121,7 @@
   become_user: "{{ username }}"
   dconf: 
     key="/org/gnome/desktop/screensaver/picture-uri" 
-    value="'file:///home/{{ username }}/.wallpapers/wallpaper-aurora05.jpg'"
+    value="'file:///home/{{ username }}/.wallpapers/nord-wallpaper04-blurred.jpg'"
 
 - name: copy profile pic
   become_user: "{{ username }}"
