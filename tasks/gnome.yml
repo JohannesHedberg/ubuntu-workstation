@@ -257,7 +257,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/unite/extend-left-box" 
-    value: "'true'"
+    value: "false"
 
 - name: gnome-extension unite show activities button
   become_user: "{{ username }}"
@@ -281,13 +281,13 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/unite/reduce-panel-spacing" 
-    value: "'true'"
+    value: "false"
 
 - name: gnome-extension unite restrict to primary screen
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/unite/restrict-to-primary-screen" 
-    value: "'false'"
+    value: "false"
 
 - name: gnome-extension unite show desktop name
   become_user: "{{ username }}"
@@ -390,6 +390,19 @@
   dconf: 
     key: "/org/gnome/shell/extensions/aylurs-widgets/background-clock" 
     value: "false"
+
+- name: gnome-extension aylurs widget clock-menu-position
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/clock-menu-position" 
+    value: "0"
+
+- name: gnome-extension aylurs widget clock-menu-position-offset
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/clock-menu-position-offset" 
+    value: "0"
+
 
 - name: gnome-extension aylurs widget battery bar offset
   become_user: "{{ username }}"
