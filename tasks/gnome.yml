@@ -425,7 +425,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-offset" 
-    value: "5"
+    value: "2"
 
 - name: gnome-extension aylurs widget battery bar true
   become_user: "{{ username }}"
