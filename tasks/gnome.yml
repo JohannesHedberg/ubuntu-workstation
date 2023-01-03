@@ -259,6 +259,34 @@
     value: "'rgb(46,52,64)'"
   when: theme == "light"
 
+- name: set terminal cursor custom colors
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/cursor-colors-set"
+    value: "true"
+  when: theme == "light"
+
+- name: terminal enable cursor blink
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/cursor-blink-mode"
+    value: "'on'"
+  when: theme == "light"
+
+- name: set terminal cursor background
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/cursor-background-color"
+    value: "'rgb(171,176,184)'"
+  when: theme == "light"
+
+- name: set terminal cursor foreground
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/cursor-foreground-color"
+    value: "'rgb(74,76,81)'"
+  when: theme == "light"
+
 - name: disable default font in gedit
   become_user: "{{ username }}"
   dconf: 
@@ -738,7 +766,7 @@
     value: "'Nordic-darker'"
 
 - name: clone whitesur theme if lighttheme
-  shell: cd /home/{{ username }}/git/ && git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git && /home/{{ username }}/.ansible-flags/whitesur_cloned
+  shell: cd /home/{{ username }}/git/ && git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git && touch /home/{{ username }}/.ansible-flags/whitesur_cloned
   args:
     creates: /home/{{ username }}/.ansible-flags/whitesur_cloned
   when: theme == "light"
@@ -752,7 +780,7 @@
   when: theme == "light"
 
 - name: tweak whitesur theme if lighttheme
-  become_user: "{{ username }}"
+  become: yes
   shell: ./tweaks.sh --dash-to-dock --silent-mode && touch /home/{{ username }}/.ansible-flags/whitesur_tweaked
   args: 
     chdir: /home/{{ username }}/git/WhiteSur-gtk-theme
@@ -763,12 +791,12 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/user-theme/name" 
-    value: "WhiteSur-Light"
+    value: "'WhiteSur-Light'"
   when: theme == "light"
 
 - name: set gtk-theme to whitesur if light theme
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/desktop/interface/gtk-theme" 
-    value: "WhiteSur-Light"
+    value: "'WhiteSur-Light'"
   when: theme == "light"
