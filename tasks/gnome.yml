@@ -750,13 +750,13 @@
   become_user: "{{ username }}"
   dconf:
     key: "/org/gnome/shell/enabled-extensions"
-    value: "['unite@hardpixel.eu', 'rounded-window-corners@yilozt', 'blur-my-shell@aunetx', 'custom-hot-corners-extended@G-dH.github.com', 'widgets@aylur', 'dash-to-dock@micxgx.gmail.com']"
+    value: "['unite@hardpixel.eu', 'blur-my-shell@aunetx', 'custom-hot-corners-extended@G-dH.github.com', 'widgets@aylur', 'dash-to-dock@micxgx.gmail.com']"
 
 - name: disable extensions if light theme
   become_user: "{{ username }}"
   dconf:
     key: "/org/gnome/shell/disabled-extensions"
-    value: "['custom-hot-corners-extended@G-dH.github.com']"
+    value: "['rounded-window-corners@yilozt']"
   when: theme == "light"
 
 - name: set gnome nord icon theme # setting nord over papirus doesn't overwrite all of papirus icons, which is the wanted behaviour (directory folders are overwritten)
