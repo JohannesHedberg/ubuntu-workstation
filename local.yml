@@ -9,6 +9,10 @@
     - name: username
       prompt: Username?
       private: false
+    - name: theme
+      prompt: theme light/dark
+      private: false
+      default: "light"
 
   tasks:
     - include: tasks/users.yml
@@ -17,4 +21,3 @@
     - include: tasks/packages.yml
     - include: tasks/gnome.yml
     - include: tasks/commands.yml
-    - include: tasks/cron.yml

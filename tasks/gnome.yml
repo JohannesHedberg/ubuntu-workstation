@@ -10,6 +10,12 @@
     state: directory
   become_user: "{{ username }}"
 
+- name: create theme folder for theme related stuff
+  file:
+    path: /home/{{ username }}/.theme/
+    state: directory
+  become_user: "{{ username }}"
+
 - name: copy gnome theme nordic zip
   copy: 
     src: files/themes/nordic.tar.gz
@@ -24,12 +30,6 @@
     src: /home/{{ username }}/.theme/nordic.tar.gz
     dest: /usr/share/themes
 
-- name: set gnome nordic theme
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/desktop/interface/gtk-theme" 
-    value: "'Nordic-bluish-accent-v40'"
-
 - name: copy folders icons nordic zip
   copy: 
     src: files/themes/nordic-folders.tar.xz
@@ -43,6 +43,12 @@
   unarchive: 
     src: /home/{{ username }}/.theme/nordic-folders.tar.xz
     dest: /usr/share/icons
+
+- name: set gnome nordic theme
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/desktop/interface/gtk-theme" 
+    value: "'Nordic-bluish-accent-v40'"
 
 - name: set gnome papirus icon theme
   become_user: "{{ username }}"
@@ -78,7 +84,6 @@
   args:
     creates: /home/{{ username }}/.ansible-flags/gnome-theme-papirus-nord-set-black
 
-
 - name: set hack font
   become_user: "{{ username }}"
   dconf: 
@@ -101,7 +106,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/favorite-apps" 
-    value: "['brave-browser.desktop', 'org.gnome.Terminal.desktop', 'code.desktop', 'spotify.desktop', 'nordpass_nordpass.desktop', 'org.gnome.Nautilus.desktop']"
+    value: "['firefox_firefox.desktop', 'org.gnome.Terminal.desktop', 'code.desktop', 'spotify.desktop', 'nordpass_nordpass.desktop', 'org.gnome.Nautilus.desktop']"
 
 - name: copy wallpaper folder
   copy: 
@@ -138,12 +143,6 @@
     path: /var/lib/AccountsService/users/{{ username }}
     regexp: '^Icon='
     line: 'Icon=/var/lib/AccountsService/icons/johannes'
-
-- name: create theme folder for theme related stuff
-  file:
-    path: /home/{{ username }}/.theme/
-    state: directory
-  become_user: "{{ username }}"
 
 - name: set gnome desktop setting show-clock-weekday
   become_user: "{{ username }}"
@@ -212,7 +211,7 @@
   shell: cd /home/{{ username }}/git/ && git clone https://github.com/arcticicestudio/nord-gnome-terminal.git && /home/{{ username }}/.ansible-flags/terminal_nord_theme_clone
   args:
     creates: /home/{{ username }}/.ansible-flags/terminal_nord_theme_clone
-  ignore_errors: yes 
+  ignore_errors: yes
 
 - name: apply nord theme for terminal
   become_user: "{{ username }}"
@@ -233,11 +232,32 @@
     key: "/org/gnome/terminal/legacy/profiles:/background-transparency-percent" 
     value: "15"
 
-- name: set transparency level in terminal
+- name: hide scrollbar in terminal
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/terminal/legacy/profiles:scrollbar-policy" 
     value: "'never'"
+
+- name: set terminal to white theme
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/terminal/legacy/theme-variant"
+    value: "'light'"
+  when: theme == "light"
+
+- name: set terminal background to white/gray
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/background-color"
+    value: "'rgb(216,222,233)'"
+  when: theme == "light"
+
+- name: set terminal text to black/darkgray
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/foreground-color"
+    value: "'rgb(46,52,64)'"
+  when: theme == "light"
 
 - name: disable default font in gedit
   become_user: "{{ username }}"
@@ -343,47 +363,100 @@
     key: "/org/gnome/shell/extensions/blur-my-shell/panel/override-background" 
     value: "'true'"
 
+- name: blur-my-shell disable dash-to-dock blur
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/dash-to-dock/blur" 
+    value: "false"
+
 - name: blur-my-shell applications true
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/blur-my-shell/applications/blur" 
-    value: "false"
+    value: "true"
+  when: theme == "light"
 
 - name: blur-my-shell applications customize true
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/blur-my-shell/applications/customize" 
     value: "true"
+  when: theme == "light"
 
 - name: blur-my-shell applications enable all false
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/blur-my-shell/applications/enable-all" 
     value: "false"
+  when: theme == "light"
 
 - name: blur-my-shell applications opacity
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/blur-my-shell/applications/opacity" 
-    value: "240"
+    value: "217"
+  when: theme == "light"
 
 - name: blur-my-shell applications sigma
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/blur-my-shell/applications/sigma" 
-    value: "30"
+    value: "0"
+  when: theme == "light"
 
 - name: blur-my-shell applications brightness
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/blur-my-shell/applications/brightness" 
-    value: "0.6"
+    value: "0.9"
 
 - name: blur-my-shell applications whitelist
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/blur-my-shell/applications/whitelist" 
-    value: "['Brave-browser', 'org.gnome.Nautilus', 'gedit']"
+    value: "['org.gnome.Nautilus', 'gedit']"
+
+- name: dash-to-dock background color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/background-color" 
+    value: "'rgb(216,222,233)'"
+  when: theme == "light"
+
+- name: dash-to-dock background opacity
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/background-opacity" 
+    value: "0.7"
+  when: theme == "light"
+
+- name: dash-to-dock enable custom background color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/custom-background-color" 
+    value: "true"
+  when: theme == "light"
+
+- name: dash-to-dock disable intellihide
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/intellihide" 
+    value: "false"
+  when: theme == "light"
+
+- name: dash-to-dock enable multimonitor
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/multi-monitor" 
+    value: "true"
+  when: theme == "light"
+
+- name: dash-to-dock transparency mode fixed
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/transparency-mode" 
+    value: "'FIXED'"
+  when: theme == "light"
 
 - name: gnome-extension rounded corners settings
   become_user: "{{ username }}"
@@ -649,11 +722,53 @@
   become_user: "{{ username }}"
   dconf:
     key: "/org/gnome/shell/enabled-extensions"
-    value: "['unite@hardpixel.eu', 'rounded-window-corners@yilozt', 'blur-my-shell@aunetx', 'custom-hot-corners-extended@G-dH.github.com', 'widgets@aylur']"
+    value: "['unite@hardpixel.eu', 'rounded-window-corners@yilozt', 'blur-my-shell@aunetx', 'custom-hot-corners-extended@G-dH.github.com', 'widgets@aylur', 'dash-to-dock@micxgx.gmail.com']"
 
-- name: set gnome nord icon theme # setting nord over papirus (line 51) doesn't overwrite all of papirus icons, which is the wanted behaviour (directory folders are overwritten)
+- name: disable extensions if light theme
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/shell/enabled-extensions"
+    value: "['custom-hot-corners-extended@G-dH.github.com']"
+  when: theme == "light"
+
+- name: set gnome nord icon theme # setting nord over papirus doesn't overwrite all of papirus icons, which is the wanted behaviour (directory folders are overwritten)
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/desktop/interface/icon-theme" 
     value: "'Nordic-darker'"
 
+- name: clone whitesur theme if lighttheme
+  shell: cd /home/{{ username }}/git/ && git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git && /home/{{ username }}/.ansible-flags/whitesur_cloned
+  args:
+    creates: /home/{{ username }}/.ansible-flags/whitesur_cloned
+  when: theme == "light"
+
+- name: install whitesur theme if lighttheme
+  become_user: "{{ username }}"
+  shell: ./install.sh -l -c Light -c Dark -N mojave && touch /home/{{ username }}/.ansible-flags/whitesur_installed
+  args: 
+    chdir: /home/{{ username }}/git/WhiteSur-gtk-theme
+    creates: /home/{{ username }}/.ansible-flags/whitesur_installed
+  when: theme == "light"
+
+- name: tweak whitesur theme if lighttheme
+  become_user: "{{ username }}"
+  shell: ./tweaks.sh --dash-to-dock --silent-mode && touch /home/{{ username }}/.ansible-flags/whitesur_tweaked
+  args: 
+    chdir: /home/{{ username }}/git/WhiteSur-gtk-theme
+    creates: /home/{{ username }}/.ansible-flags/whitesur_tweaked
+  when: theme == "light"
+
+- name: set user_theme to whitesur if light theme
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/user-theme/name" 
+    value: "WhiteSur-Light"
+  when: theme == "light"
+
+- name: set gtk-theme to whitesur if light theme
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/desktop/interface/gtk-theme" 
+    value: "WhiteSur-Light"
+  when: theme == "light"

@@ -12,3 +12,9 @@
     - gnome-shell-extensions
     - libglib2.0-dev-bin # needed for gdm login screen background tool
     - wmctrl # needed for blurring vscode
+
+- name: install white theme requirements
+  apt:
+    pkg:
+    - sassc # required for whitesur
+  when: theme == "light"
