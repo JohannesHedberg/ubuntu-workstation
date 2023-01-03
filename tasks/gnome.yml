@@ -455,7 +455,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/dash-to-dock/background-opacity" 
-    value: "0.7"
+    value: "0.65"
   when: theme == "light"
 
 - name: dash-to-dock enable custom background color
@@ -755,7 +755,7 @@
 - name: disable extensions if light theme
   become_user: "{{ username }}"
   dconf:
-    key: "/org/gnome/shell/enabled-extensions"
+    key: "/org/gnome/shell/disabled-extensions"
     value: "['custom-hot-corners-extended@G-dH.github.com']"
   when: theme == "light"
 
