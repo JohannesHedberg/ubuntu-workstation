@@ -800,3 +800,39 @@
     key: "/org/gnome/desktop/interface/gtk-theme" 
     value: "'WhiteSur-Light'"
   when: theme == "light"
+
+- name: install spicetify
+  become_user: "{{ username }}"
+  shell: curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.sh | sh && curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.sh | sh && touch /home/{{ username }}/.ansible-flags/spicetify_installed
+  args:
+    creates: /home/{{ username }}/.ansible-flags/spicetify_installed
+
+- name: clone spicetify themes
+  become_user: "{{ username }}"
+  shell: cd /home/{{ username }}/git/ && git clone --depth=1 https://github.com/spicetify/spicetify-themes.git && /home/{{ username }}/.ansible-flags/spicetify_themes
+  args:
+    creates: /home/{{ username }}/.ansible-flags/spicetify_themes
+
+- name: copy spicetify themes
+  become_user: "{{ username }}"
+  copy: 
+    src: /home/{{ username }}/git/spicetify-themes
+    dest: /home/{{ username }}/.config/spicetify/Themes
+    owner: "{{ username }}" 
+    group: "{{ username }}"
+    mode: '0600' 
+    force: no
+
+- name: set nord light theme for spicetify if lighttheme
+  become_user: "{{ username }}"
+  shell: spicetify config current_theme Nord-Light && touch /home/{{ username }}/.ansible-flags/spicetify_nord_light 
+  args:
+    creates: /home/{{ username }}/.ansible-flags/spicetify_nord_light
+  when: theme == "light"
+
+- name: set nord dark theme for spicetify if darktheme
+  become_user: "{{ username }}"
+  shell: spicetify config current_theme Nord-Dark && touch /home/{{ username }}/.ansible-flags/spicetify_nord_dark 
+  args:
+    creates: /home/{{ username }}/.ansible-flags/spicetify_nord_dark
+  when: theme == "dark"
