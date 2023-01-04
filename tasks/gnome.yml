@@ -158,24 +158,6 @@
     chdir: /home/{{ username }}/git/nord-gnome-terminal/src
     creates: /home/{{ username }}/.ansible-flags/terminal_nord_theme_apply
 
-- name: set a bit of transparency in terminal
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/use-transparent-background" 
-    value: "true"
-
-- name: set transparency level in terminal
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/background-transparency-percent" 
-    value: "15"
-
-- name: hide scrollbar in terminal
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/scrollbar-policy" 
-    value: "'never'"
-
 - name: set terminal to white theme
   become_user: "{{ username }}"
   dconf:
@@ -183,95 +165,184 @@
     value: "'light'"
   when: theme == "light"
 
-- name: set terminal background to white/gray
+- name: set terminal keybinding closetab
   become_user: "{{ username }}"
   dconf:
-    key: "/org/gnome/terminal/legacy/profiles:/background-color"
+    key: "/org/gnome/terminal/legacy/keybindings/close-tab"
+    value: "'<Primary>w'"
+
+- name: set terminal keybinding closewindow
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/terminal/legacy/keybindings/close-window"
+    value: "'<Primary>q'"
+
+- name: set terminal keybinding newtab
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/terminal/legacy/keybindings/new-tab"
+    value: "'<Primary>t'"
+
+- name: set terminal keybinding newwindow
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/terminal/legacy/keybindings/new-window"
+    value: "'<Primary>n'"
+
+- name: set terminal keybinding find
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/terminal/legacy/keybindings/find"
+    value: "'<Primary>f'"
+
+- name: fetch terminal default profile UUID
+  become_user: "{{ username }}"
+  shell: gsettings get org.gnome.Terminal.ProfilesList list | awk -F"['']" '{print $2}'
+  register: default_terminal_profile
+
+- name: set terminal profile name Nord
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/visible-name" 
+    value: "'Nord-JKH'"
+  when: theme == "light"
+
+- name: set terminal background color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/background-color" 
     value: "'rgb(216,222,233)'"
   when: theme == "light"
 
-- name: set terminal text to black/darkgray
+- name: set terminal background transparency true
   become_user: "{{ username }}"
-  dconf:
-    key: "/org/gnome/terminal/legacy/profiles:/foreground-color"
-    value: "'rgb(46,52,64)'"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/use-transparent-background" 
+    value: "true"
+
+- name: set terminal background transparency-percent
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/transparency-percent" 
+    value: "8"
+
+- name: set terminal bold-color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/bold-color" 
+    value: "'#D8DEE9'"
   when: theme == "light"
 
-- name: set terminal cursor custom colors
+- name: set terminal bold-color-same-as-fg
   become_user: "{{ username }}"
-  dconf:
-    key: "/org/gnome/terminal/legacy/profiles:/cursor-colors-set"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/bold-color-same-as-fg" 
     value: "true"
   when: theme == "light"
 
-- name: terminal enable cursor blink
+- name: set terminal bold-is-bright false
   become_user: "{{ username }}"
-  dconf:
-    key: "/org/gnome/terminal/legacy/profiles:/cursor-blink-mode"
-    value: "'on'"
-  when: theme == "light"
-
-- name: set terminal cursor background
-  become_user: "{{ username }}"
-  dconf:
-    key: "/org/gnome/terminal/legacy/profiles:/cursor-background-color"
-    value: "'rgb(171,176,184)'"
-  when: theme == "light"
-
-- name: set terminal cursor foreground
-  become_user: "{{ username }}"
-  dconf:
-    key: "/org/gnome/terminal/legacy/profiles:/cursor-foreground-color"
-    value: "'rgb(74,76,81)'"
-  when: theme == "light"
-
-- name: set terminal bold color
-  become_user: "{{ username }}"
-  dconf:
-    key: "/org/gnome/terminal/legacy/profiles:/bold-color"
-    value: "'#D3DEE9'"
-  when: theme == "light"
-
-- name: set terminal bold color same as fg true
-  become_user: "{{ username }}"
-  dconf:
-    key: "/org/gnome/terminal/legacy/profiles:/bold-color-same-as-fg"
-    value: "true"
-  when: theme == "light"
-
-- name: set terminal bold color is bright false
-  become_user: "{{ username }}"
-  dconf:
-    key: "/org/gnome/terminal/legacy/profiles:/bold-is-bright"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/bold-is-bright" 
     value: "false"
   when: theme == "light"
 
-- name: set terminal highlight background color
+- name: set terminal cursor-background-color
   become_user: "{{ username }}"
-  dconf:
-    key: "/org/gnome/terminal/legacy/profiles:/highlight-background-color"
-    value: "'rgd(136,192,208)'"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/cursor-background-color" 
+    value: "'rgb(184,189,198)'"
   when: theme == "light"
 
-- name: set terminal highlight colors set true
+- name: set terminal cursor-blink-mode
   become_user: "{{ username }}"
-  dconf:
-    key: "/org/gnome/terminal/legacy/profiles:/highlight-colors-set"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/cursor-blink-mode" 
+    value: "'on'"
+  when: theme == "light"
+
+- name: set terminal cursor-colors-set true
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/cursor-colors-set" 
     value: "true"
   when: theme == "light"
 
-- name: set terminal highlight foreground color
+- name: set terminal cursor-foreground-color
   become_user: "{{ username }}"
-  dconf:
-    key: "/org/gnome/terminal/legacy/profiles:/highlight-foreground-color"
-    value: "'rgd(46,52,64)'"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/cursor-foreground-color" 
+    value: "'rgb(59,66,82)'"
+  when: theme == "light"
+
+- name: set terminal foreground-color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/foreground-color" 
+    value: "'rgb(46,52,64)'"
+  when: theme == "light"
+
+- name: set terminal highlight-background-color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/highlight-background-color" 
+    value: "'rgb(136,192,208)'"
+  when: theme == "light"
+
+- name: set terminal highlight-colors-set
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/highlight-colors-set" 
+    value: "true"
+  when: theme == "light"
+
+- name: set terminal highlight-foreground-color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/highlight-foreground-color" 
+    value: "'rgb(46,52,64)'"
   when: theme == "light"
 
 - name: set terminal palette
   become_user: "{{ username }}"
-  dconf:
-    key: "/org/gnome/terminal/legacy/profiles:/palette"
-    value: "['rgb(7,54,66)', 'rgb(220,50,47)', 'rgb(133,153,0)', 'rgb(181,137,0)', 'rgb(38,139,210)', 'rgb(211,54,130)', 'rgb(42,161,152)', 'rgb(238,232,213)', 'rgb(0,43,54)', 'rgb(203,75,22)', 'rgb(88,110,117)', 'rgb(101,123,131)', 'rgb(131,148,150)', 'rgb(108,113,196)', 'rgb(147,161,161)', 'rgb(253,246,227)']"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/palette" 
+    value: "['rgb(59,66,82)', 'rgb(191,97,106)', 'rgb(146,170,126)', 'rgb(205,178,123)', 'rgb(94,130,140)', 'rgb(180,142,173)', 'rgb(121,158,157)', 'rgb(149,152,156)', 'rgb(76,86,106)', 'rgb(162,84,92)', 'rgb(138,160,119)', 'rgb(186,162,114)', 'rgb(121,148,176)', 'rgb(157,125,151)', 'rgb(113,147,146)', 'rgb(121,123,127)']"
+  when: theme == "light"
+
+- name: set terminal scrollbar-policy never
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/scrollbar-policy" 
+    value: "'never'"
+  when: theme == "light"
+
+- name: set terminal use-system-font true
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/use-system-font" 
+    value: "true"
+  when: theme == "light"
+
+- name: set terminal use-theme-colors
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/use-theme-colors" 
+    value: "false"
+  when: theme == "light"
+
+- name: set terminal use-theme-transparency false
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/use-theme-transparency" 
+    value: "false"
+  when: theme == "light"
+
+- name: set terminal default profile
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/default" 
+    value: "'{{ default_terminal_profile.stdout }}'"
   when: theme == "light"
 
 - name: disable default font in gedit
