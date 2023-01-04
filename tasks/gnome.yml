@@ -50,40 +50,6 @@
     key: "/org/gnome/desktop/interface/gtk-theme" 
     value: "'Nordic-bluish-accent-v40'"
 
-- name: set gnome papirus icon theme
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/desktop/interface/icon-theme" 
-    value: "'Papirus'"
-
-- name: copy papirus directory icons
-  copy: 
-    src: files/themes/papirus-nord.tar.xz
-    dest: /home/{{ username }}/.theme/papirus-nord-icons/
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    mode: '0600' 
-    force: no
-
-- name: extract gnome theme papirus nord folders zip
-  unarchive: 
-    src: /home/{{ username }}/.theme/papirus-nord-icons/papirus-nord.tar.xz
-    dest: /home/{{ username }}/.theme/papirus-nord-icons/
-
-- name: install gnome theme papirus nord folders zip
-  become: yes
-  shell:
-    cmd: /home/{{ username }}/.theme/papirus-nord-icons/install && touch /home/{{ username }}/.ansible-flags/gnome-theme-papirus-nord-install
-  args:
-    creates: /home/{{ username }}/.ansible-flags/gnome-theme-papirus-nord-install
-
-- name: install gnome theme papirus nord folders zip
-  become: yes
-  shell:
-    cmd: /home/{{ username }}/.theme/papirus-nord-icons/papirus-folders -C black && touch /home/{{ username }}/.ansible-flags/gnome-theme-papirus-nord-set-black
-  args:
-    creates: /home/{{ username }}/.ansible-flags/gnome-theme-papirus-nord-set-black
-
 - name: set hack font
   become_user: "{{ username }}"
   dconf: 
@@ -298,6 +264,23 @@
   dconf: 
     key: "/org/gnome/gedit/preferences/editor/editor-font" 
     value: "'Hack 12'"
+
+- name: copy gedit nord theme xml
+  copy: 
+    src: files/themes/nord.xml
+    dest: /usr/share/gtksourceview-4/styles/
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: '0600' 
+    force: no
+  when: theme == "light"
+
+- name: set nord theme in gedit if lighttheme
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/gedit/preferences/editor/scheme"
+    value: "'Nord'"
+  when: theme == "light"
 
 - name: copy extensions zip
   copy: 
@@ -759,12 +742,6 @@
     value: "['rounded-window-corners@yilozt']"
   when: theme == "light"
 
-- name: set gnome nord icon theme # setting nord over papirus doesn't overwrite all of papirus icons, which is the wanted behaviour (directory folders are overwritten)
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/desktop/interface/icon-theme" 
-    value: "'Nordic-darker'"
-
 - name: clone whitesur theme if lighttheme
   shell: cd /home/{{ username }}/git/ && git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git && touch /home/{{ username }}/.ansible-flags/whitesur_cloned
   args:
@@ -801,3 +778,42 @@
     value: "'WhiteSur-Light'"
   when: theme == "light"
 
+- name: set gnome papirus icon theme
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/desktop/interface/icon-theme" 
+    value: "'Papirus'"
+
+- name: copy papirus directory icons
+  copy: 
+    src: files/themes/papirus-nord.tar.xz
+    dest: /home/{{ username }}/.theme/papirus-nord-icons/
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: '0600' 
+    force: no
+
+- name: extract gnome theme papirus nord folders zip
+  unarchive: 
+    src: /home/{{ username }}/.theme/papirus-nord-icons/papirus-nord.tar.xz
+    dest: /home/{{ username }}/.theme/papirus-nord-icons/
+
+- name: install gnome theme papirus nord folders zip
+  become: yes
+  shell:
+    cmd: /home/{{ username }}/.theme/papirus-nord-icons/install && touch /home/{{ username }}/.ansible-flags/gnome-theme-papirus-nord-install
+  args:
+    creates: /home/{{ username }}/.ansible-flags/gnome-theme-papirus-nord-install
+
+- name: install gnome theme papirus nord folders zip
+  become: yes
+  shell:
+    cmd: /home/{{ username }}/.theme/papirus-nord-icons/papirus-folders -C black && touch /home/{{ username }}/.ansible-flags/gnome-theme-papirus-nord-set-black
+  args:
+    creates: /home/{{ username }}/.ansible-flags/gnome-theme-papirus-nord-set-black
+
+- name: set gnome nord icon theme # setting nord over papirus doesn't overwrite all of papirus icons, which is the wanted behaviour (directory folders are overwritten)
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/desktop/interface/icon-theme" 
+    value: "'Nordic-darker'"
