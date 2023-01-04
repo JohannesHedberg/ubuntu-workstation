@@ -17,12 +17,12 @@ References:
   <author>Arctic Ice Studio</author>
   <description>An arctic, north-bluish clean and elegant gedit syntax theme.</description>
 
-  <color name="nord0" value="#D8DEE9" />
+  <color name="nord0" value="#E1E6F1" />
   <color name="nord1" value="#3B4252" />
   <color name="nord2" value="#434C5E" />
   <color name="nord3" value="#4C566A" />
   <color name="nord3-brightened" value="#616E88" />
-  <color name="nord4" value="#D8DEE9" />
+  <color name="nord4" value="#2E3440" />
   <color name="nord5" value="#BEC1C6" />
   <color name="nord6" value="#B4B5B8" />
 
@@ -36,21 +36,25 @@ References:
   <color name="nord13" value="#EBCB8B" />
   <color name="nord14" value="#92AA7E" />
   <color name="nord15" value="#B48EAD" />
+  <color name="nord16" value="#D2D7E0" />
+  <color name="nord17" value="#81A1C1" />
+  <color name="nord18" value="#88C0D0" />
+ 
 
 <!--+- - - - - +
     + Settings +
     +- - - - - +-->
   <style name="background-pattern" background="nord1"/>
-  <style name="bracket-match" foreground="nord4" background="nord10"/>
+  <style name="bracket-match" foreground="nord4" background="nord17"/>
   <style name="bracket-mismatch" foreground="nord11" underline="true" />
-  <style name="current-line" foreground="nord4" background="nord1" />
+  <style name="current-line" foreground="nord4" background="nord16" />
   <style name="cursor" foreground="nord4" />
   <style name="draw-spaces" foreground="nord3" />
   <style name="line-numbers" foreground="nord3" background="nord0" />
-  <style name="search-match" foreground="nord4" background="nord10" />
+  <style name="search-match" foreground="nord4" background="nord13" />
   <style name="secondary-cursor" use-style="cursor" />
-  <style name="selection" foreground="nord4" background="nord2" />
-  <style name="selection-unfocused" foreground="nord4" background="nord9" />
+  <style name="selection" foreground="nord0" background="nord18" />
+  <style name="selection-unfocused" foreground="nord4" background="nord13" />
   <style name="right-margin" foreground="nord3" />
   <style name="text" foreground="nord4" background="nord0" />
 

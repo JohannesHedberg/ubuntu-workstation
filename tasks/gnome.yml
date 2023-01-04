@@ -82,34 +82,6 @@
     group: "{{ username }}"
     mode: '0604'
 
-- name: set wallpaper
-  become_user: "{{ username }}"
-  dconf: 
-    key="/org/gnome/desktop/background/picture-uri" 
-    value="'file:///home/{{ username }}/.wallpapers/nord-wallpaper04.jpg'"
-
-- name: set lock screen background
-  become_user: "{{ username }}"
-  dconf: 
-    key="/org/gnome/desktop/screensaver/picture-uri" 
-    value="'file:///home/{{ username }}/.wallpapers/nord-wallpaper04-blurred.jpg'"
-
-- name: copy profile pic
-  become_user: "{{ username }}"
-  copy: 
-    src: files/pictures/johannes.jpg
-    dest: /var/lib/AccountsService/icons/johannes
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    mode: '0604'
-
-- name: set profile picture
-  become: yes
-  lineinfile:
-    path: /var/lib/AccountsService/users/{{ username }}
-    regexp: '^Icon='
-    line: 'Icon=/var/lib/AccountsService/icons/johannes'
-
 - name: set gnome desktop setting show-clock-weekday
   become_user: "{{ username }}"
   dconf: 
@@ -201,7 +173,7 @@
 - name: hide scrollbar in terminal
   become_user: "{{ username }}"
   dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:scrollbar-policy" 
+    key: "/org/gnome/terminal/legacy/profiles:/scrollbar-policy" 
     value: "'never'"
 
 - name: set terminal to white theme
@@ -253,6 +225,55 @@
     value: "'rgb(74,76,81)'"
   when: theme == "light"
 
+- name: set terminal bold color
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/bold-color"
+    value: "'#D3DEE9'"
+  when: theme == "light"
+
+- name: set terminal bold color same as fg true
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/bold-color-same-as-fg"
+    value: "true"
+  when: theme == "light"
+
+- name: set terminal bold color is bright false
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/bold-is-bright"
+    value: "false"
+  when: theme == "light"
+
+- name: set terminal highlight background color
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/highlight-background-color"
+    value: "'rgd(136,192,208)'"
+  when: theme == "light"
+
+- name: set terminal highlight colors set true
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/highlight-colors-set"
+    value: "true"
+  when: theme == "light"
+
+- name: set terminal highlight foreground color
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/highlight-foreground-color"
+    value: "'rgd(46,52,64)'"
+  when: theme == "light"
+
+- name: set terminal palette
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/palette"
+    value: "['rgb(7,54,66)', 'rgb(220,50,47)', 'rgb(133,153,0)', 'rgb(181,137,0)', 'rgb(38,139,210)', 'rgb(211,54,130)', 'rgb(42,161,152)', 'rgb(238,232,213)', 'rgb(0,43,54)', 'rgb(203,75,22)', 'rgb(88,110,117)', 'rgb(101,123,131)', 'rgb(131,148,150)', 'rgb(108,113,196)', 'rgb(147,161,161)', 'rgb(253,246,227)']"
+  when: theme == "light"
+
 - name: disable default font in gedit
   become_user: "{{ username }}"
   dconf: 
@@ -271,7 +292,7 @@
     dest: /usr/share/gtksourceview-4/styles/
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: '0600' 
+    mode: '0600'
     force: no
   when: theme == "light"
 
@@ -344,6 +365,34 @@
     key: "/org/gnome/shell/extensions/unite/show-window-title" 
     value: "'tiled'"
 
+- name: blur-my-shell brightness
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/brightness" 
+    value: "0.9"
+  when: theme == "light"
+
+- name: blur-my-shell color-and-noise
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/color-and-noise" 
+    value: "false"
+  when: theme == "light"
+
+- name: blur-my-shell hacks-level no artifacts
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/hacks-level" 
+    value: "3"
+  when: theme == "light"
+
+- name: blur-my-shell sigma 0
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/sigma" 
+    value: "0"
+  when: theme == "light"
+
 - name: blur-my-shell panel true
   become_user: "{{ username }}"
   dconf: 
@@ -387,11 +436,11 @@
     value: "true"
   when: theme == "light"
 
-- name: blur-my-shell applications customize true
+- name: blur-my-shell applications customize false
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/blur-my-shell/applications/customize" 
-    value: "true"
+    value: "false"
   when: theme == "light"
 
 - name: blur-my-shell applications enable all false
@@ -407,19 +456,6 @@
     key: "/org/gnome/shell/extensions/blur-my-shell/applications/opacity" 
     value: "217"
   when: theme == "light"
-
-- name: blur-my-shell applications sigma
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/blur-my-shell/applications/sigma" 
-    value: "0"
-  when: theme == "light"
-
-- name: blur-my-shell applications brightness
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/blur-my-shell/applications/brightness" 
-    value: "0.9"
 
 - name: blur-my-shell applications whitelist
   become_user: "{{ username }}"
@@ -749,7 +785,7 @@
   when: theme == "light"
 
 - name: install whitesur theme if lighttheme
-  become_user: "{{ username }}"
+  become: yes
   shell: ./install.sh -l -c Light -c Dark -N mojave && touch /home/{{ username }}/.ansible-flags/whitesur_installed
   args: 
     chdir: /home/{{ username }}/git/WhiteSur-gtk-theme
@@ -775,8 +811,49 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/desktop/interface/gtk-theme" 
-    value: "'WhiteSur-Light'"
+    value: "'mojave-Light'"
   when: theme == "light"
+
+
+- name: set wallpaper
+  become_user: "{{ username }}"
+  dconf: 
+    key="/org/gnome/desktop/background/picture-uri" 
+    value="'file:///home/{{ username }}/.wallpapers/nord-wallpaper04.jpg'"
+
+- name: set wallpaper mode
+  become_user: "{{ username }}"
+  dconf: 
+    key="/org/gnome/desktop/background/picture-options" 
+    value="'stetched'"
+
+- name: set lock screen background
+  become_user: "{{ username }}"
+  dconf: 
+    key="/org/gnome/desktop/screensaver/picture-uri" 
+    value="'file:///home/{{ username }}/.wallpapers/nord-wallpaper04-blurred.jpg'"
+
+- name: set lock screen background mode
+  become_user: "{{ username }}"
+  dconf: 
+    key="/org/gnome/desktop/screensaver/picture-options" 
+    value="'stetched'"
+
+- name: copy profile pic
+  become_user: "{{ username }}"
+  copy: 
+    src: files/pictures/johannes.jpg
+    dest: /var/lib/AccountsService/icons/johannes
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: '0604'
+
+- name: set profile picture
+  become: yes
+  lineinfile:
+    path: /var/lib/AccountsService/users/{{ username }}
+    regexp: '^Icon='
+    line: 'Icon=/var/lib/AccountsService/icons/johannes'
 
 - name: set gnome papirus icon theme
   become_user: "{{ username }}"
