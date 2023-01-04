@@ -369,7 +369,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/blur-my-shell/brightness" 
-    value: "0.9"
+    value: "1.0"
   when: theme == "light"
 
 - name: blur-my-shell color-and-noise
@@ -386,7 +386,7 @@
     value: "3"
   when: theme == "light"
 
-- name: blur-my-shell sigma 0
+- name: blur-my-shell sigma 30
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/blur-my-shell/sigma" 
@@ -399,17 +399,17 @@
     key: "/org/gnome/shell/extensions/blur-my-shell/panel/blur" 
     value: "'true'"  
 
-- name: blur-my-shell panel brightness
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/blur-my-shell/panel/brightness" 
-    value: "1.0"
-
 - name: blur-my-shell panel customize
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/blur-my-shell/panel/customize" 
     value: "true"
+
+- name: blur-my-shell panel brightness
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/panel/brightness" 
+    value: "1.0"
 
 - name: blur-my-shell panel sigma
   become_user: "{{ username }}"
@@ -454,7 +454,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/blur-my-shell/applications/opacity" 
-    value: "217"
+    value: "220"
   when: theme == "light"
 
 - name: blur-my-shell applications whitelist
@@ -462,6 +462,41 @@
   dconf: 
     key: "/org/gnome/shell/extensions/blur-my-shell/applications/whitelist" 
     value: "['org.gnome.Nautilus', 'gedit']"
+
+- name: blur-my-shell lockscreen blur false
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/lockscreen/blur" 
+    value: "false"
+  when: theme == "light"
+
+- name: blur-my-shell overview blur
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/overview/blur" 
+    value: "true"
+  when: theme == "light"
+
+- name: blur-my-shell overview custom blur true
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/overview/customize" 
+    value: "true"
+  when: theme == "light"
+
+- name: blur-my-shell overview style-components 1
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/overview/style-components" 
+    value: "1"
+  when: theme == "light"
+
+- name: blur-my-shell appfolder blur false
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/appfolder/blur" 
+    value: "false"
+  when: theme == "light"
 
 - name: dash-to-dock background color
   become_user: "{{ username }}"
@@ -786,7 +821,7 @@
 
 - name: install whitesur theme if lighttheme
   become: yes
-  shell: ./install.sh -l -c Light -c Dark -N mojave && touch /home/{{ username }}/.ansible-flags/whitesur_installed
+  shell: ./install.sh -c Light -c Dark && touch /home/{{ username }}/.ansible-flags/whitesur_installed
   args: 
     chdir: /home/{{ username }}/git/WhiteSur-gtk-theme
     creates: /home/{{ username }}/.ansible-flags/whitesur_installed
@@ -811,7 +846,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/desktop/interface/gtk-theme" 
-    value: "'mojave-Light'"
+    value: "'WhiteSur-Light'"
   when: theme == "light"
 
 
