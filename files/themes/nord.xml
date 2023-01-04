@@ -22,19 +22,19 @@ References:
   <color name="nord2" value="#434C5E" />
   <color name="nord3" value="#4C566A" />
   <color name="nord3-brightened" value="#616E88" />
-  <color name="nord4" value="#2E3440" />
-  <color name="nord5" value="#E5E9F0" />
-  <color name="nord6" value="#ECEFF4" />
+  <color name="nord4" value="#D8DEE9" />
+  <color name="nord5" value="#BEC1C6" />
+  <color name="nord6" value="#B4B5B8" />
 
-  <color name="nord7" value="#8FBCBB" />
-  <color name="nord8" value="#88C0D0" />
-  <color name="nord9" value="#81A1C1" />
-  <color name="nord10" value="#5E81AC" />
+  <color name="nord7" value="#799E9D" />
+  <color name="nord8" value="#7DAFBE" />
+  <color name="nord9" value="#5E828C" />
+  <color name="nord10" value="#4A676F" />
 
   <color name="nord11" value="#BF616A" />
   <color name="nord12" value="#D08770" />
   <color name="nord13" value="#EBCB8B" />
-  <color name="nord14" value="#A3BE8C" />
+  <color name="nord14" value="#92AA7E" />
   <color name="nord15" value="#B48EAD" />
 
 <!--+- - - - - +
