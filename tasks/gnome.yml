@@ -556,7 +556,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/aylurs-widgets/battery-bar-low-color" 
-    value: "'rbg(246,97,81)'"
+    value: "'rgb(255,163,72)'"
 
 - name: gnome-extension aylurs widget battery bar icon false
   become_user: "{{ username }}"
