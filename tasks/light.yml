@@ -144,7 +144,7 @@
     mode: '0600'
     force: yes
 
-- name: set nord theme in gedit if lighttheme
+- name: set nord theme in gedit 
   become_user: "{{ username }}"
   dconf:
     key: "/org/gnome/gedit/preferences/editor/scheme"
@@ -265,38 +265,38 @@
     value: "'FIXED'"
 
 
-- name: disable extensions if light theme
+- name: disable extensions
   become_user: "{{ username }}"
   dconf:
     key: "/org/gnome/shell/disabled-extensions"
     value: "['rounded-window-corners@yilozt']"
 
-- name: clone whitesur theme if lighttheme
+- name: clone whitesur theme 
   shell: cd /home/{{ username }}/git/ && git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git && touch /home/{{ username }}/.ansible-flags/whitesur_cloned
   args:
     creates: /home/{{ username }}/.ansible-flags/whitesur_cloned
 
-- name: install whitesur theme if lighttheme
+- name: install whitesur theme 
   become: yes
   shell: ./install.sh -c Light -c Dark && touch /home/{{ username }}/.ansible-flags/whitesur_installed
   args: 
     chdir: /home/{{ username }}/git/WhiteSur-gtk-theme
     creates: /home/{{ username }}/.ansible-flags/whitesur_installed
 
-- name: tweak whitesur theme if lighttheme
+- name: tweak whitesur theme 
   become: yes
   shell: ./tweaks.sh --dash-to-dock --silent-mode && touch /home/{{ username }}/.ansible-flags/whitesur_tweaked
   args: 
     chdir: /home/{{ username }}/git/WhiteSur-gtk-theme
     creates: /home/{{ username }}/.ansible-flags/whitesur_tweaked
 
-- name: set user_theme to whitesur if light theme
+- name: set user_theme to whitesur
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/user-theme/name" 
     value: "'WhiteSur-Light'"
 
-- name: set gtk-theme to whitesur if light theme
+- name: set gtk-theme to whitesur
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/desktop/interface/gtk-theme" 
