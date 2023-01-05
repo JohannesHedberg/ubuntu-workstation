@@ -1,0 +1,297 @@
+- name: set terminal to dark theme
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/terminal/legacy/theme-variant"
+    value: "'dark'"
+
+- name: fetch terminal default profile UUID
+  become_user: "{{ username }}"
+  shell: gsettings get org.gnome.Terminal.ProfilesList list | awk -F"['']" '{print $2}'
+  register: default_terminal_profile
+
+- name: set terminal profile name
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/visible-name" 
+    value: "'Nord-Dark-JKH'"
+
+- name: set terminal background color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/background-color" 
+    value: "'#2E3440'"
+
+- name: set terminal background transparency true
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/use-transparent-background" 
+    value: "true"
+
+- name: set terminal background transparency-percent
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/transparency-percent" 
+    value: "8"
+
+- name: set terminal bold-color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/bold-color" 
+    value: "'#D8DEE9'"
+
+- name: set terminal bold-color-same-as-fg
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/bold-color-same-as-fg" 
+    value: "true"
+
+- name: set terminal bold-is-bright false
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/bold-is-bright" 
+    value: "false"
+
+- name: set terminal cursor-background-color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/cursor-background-color" 
+    value: "'rgb(216,222,233)'"
+
+- name: set terminal cursor-blink-mode
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/cursor-blink-mode" 
+    value: "'on'"
+
+- name: set terminal cursor-colors-set true
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/cursor-colors-set" 
+    value: "true"
+
+- name: set terminal cursor-foreground-color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/cursor-foreground-color" 
+    value: "'rgb(59,66,82)'"
+
+- name: set terminal foreground-color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/foreground-color" 
+    value: "'#D8DEE9'"
+
+- name: set terminal highlight-background-color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/highlight-background-color" 
+    value: "'rgb(136,192,208)'"
+
+- name: set terminal highlight-colors-set
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/highlight-colors-set" 
+    value: "true"
+
+- name: set terminal highlight-foreground-color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/highlight-foreground-color" 
+    value: "'rgb(46,52,64)'"
+
+- name: set terminal palette
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/palette" 
+    value: "['#3B4252', '#BF616A', '#A3BE8C', '#EBCB8B', '#81A1C1', '#B48EAD', '#88C0D0', '#E5E9F0', '#4C566A', '#BF616A', '#A3BE8C', '#EBCB8B', '#81A1C1', '#B48EAD', '#8FBCBB', '#ECEFF4']"
+
+- name: set terminal scrollbar-policy never
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/scrollbar-policy" 
+    value: "'never'"
+
+- name: set terminal use-system-font true
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/use-system-font" 
+    value: "true"
+
+- name: set terminal use-theme-colors
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/use-theme-colors" 
+    value: "false"
+
+- name: set terminal use-theme-transparency false
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/use-theme-transparency" 
+    value: "false"
+
+- name: set terminal default profile
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/default" 
+    value: "'{{ default_terminal_profile.stdout }}'"
+
+- name: copy gedit nord theme xml
+  copy: 
+    src: files/themes/nord.xml
+    dest: /usr/share/gtksourceview-4/styles/
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: '0600'
+    force: no
+
+- name: set nord theme in gedit
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/gedit/preferences/editor/scheme"
+    value: "'Nord'"
+
+- name: blur-my-shell brightness
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/brightness" 
+    value: "1.0"
+
+- name: blur-my-shell color-and-noise
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/color-and-noise" 
+    value: "false"
+
+- name: blur-my-shell hacks-level no artifacts
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/hacks-level" 
+    value: "3"
+
+- name: blur-my-shell sigma 30
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/sigma" 
+    value: "0"
+
+- name: blur-my-shell applications true
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/applications/blur" 
+    value: "true"
+
+- name: blur-my-shell applications customize false
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/applications/customize" 
+    value: "false"
+
+- name: blur-my-shell applications enable all false
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/applications/enable-all" 
+    value: "false"
+
+- name: blur-my-shell applications opacity
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/applications/opacity" 
+    value: "220"
+
+- name: blur-my-shell lockscreen blur false
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/lockscreen/blur" 
+    value: "false"
+
+- name: blur-my-shell overview blur
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/overview/blur" 
+    value: "true"
+
+- name: blur-my-shell overview custom blur true
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/overview/customize" 
+    value: "true"
+
+- name: blur-my-shell overview style-components 1
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/overview/style-components" 
+    value: "1"
+
+- name: blur-my-shell appfolder blur false
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/blur-my-shell/appfolder/blur" 
+    value: "false"
+
+- name: dash-to-dock background color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/background-color" 
+    value: "'rgb(46,52,64)'"
+
+- name: dash-to-dock background opacity
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/background-opacity" 
+    value: "0.65"
+
+- name: dash-to-dock enable custom background color
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/custom-background-color" 
+    value: "true"
+
+- name: dash-to-dock disable intellihide
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/intellihide" 
+    value: "false"
+
+- name: dash-to-dock enable multimonitor
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/multi-monitor" 
+    value: "true"
+
+- name: dash-to-dock transparency mode fixed
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/dash-to-dock/transparency-mode" 
+    value: "'FIXED'"
+
+- name: clone whitesur theme
+  shell: cd /home/{{ username }}/git/ && git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git && touch /home/{{ username }}/.ansible-flags/whitesur_cloned
+  args:
+    creates: /home/{{ username }}/.ansible-flags/whitesur_cloned
+
+- name: install whitesur theme
+  become: yes
+  shell: ./install.sh -c Light -c Dark && touch /home/{{ username }}/.ansible-flags/whitesur_installed
+  args: 
+    chdir: /home/{{ username }}/git/WhiteSur-gtk-theme
+    creates: /home/{{ username }}/.ansible-flags/whitesur_installed
+
+- name: tweak whitesur theme
+  become: yes
+  shell: ./tweaks.sh --dash-to-dock --silent-mode && touch /home/{{ username }}/.ansible-flags/whitesur_tweaked
+  args: 
+    chdir: /home/{{ username }}/git/WhiteSur-gtk-theme
+    creates: /home/{{ username }}/.ansible-flags/whitesur_tweaked
+
+- name: set user_theme to whitesur
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/shell/extensions/user-theme/name" 
+    value: "'WhiteSur-Dark'"
+
+- name: set gtk-theme to whitesur
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/desktop/interface/gtk-theme" 
+    value: "'WhiteSur-Dark'"
+

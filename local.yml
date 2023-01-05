@@ -15,9 +15,14 @@
       default: "light"
 
   tasks:
-    - include: tasks/users.yml
-    - include: tasks/repositories.yml
-    - include: tasks/requirements.yml
-    - include: tasks/packages.yml
-    - include: tasks/gnome.yml
-    - include: tasks/commands.yml
+    - include_tasks: tasks/users.yml
+    - include_tasks: tasks/repositories.yml
+    - include_tasks: tasks/requirements.yml
+    - include_tasks: tasks/packages.yml
+    - include_tasks: tasks/gnome.yml
+    - include_tasks: tasks/commands.yml
+    - import_tasks: tasks/dark.yml
+      when: theme == "dark"
+    - include_tasks: tasks/light.yml
+      when: theme == "light"
+

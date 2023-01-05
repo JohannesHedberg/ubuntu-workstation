@@ -88,31 +88,31 @@
     key: "/org/gnome/desktop/interface/clock-show-weekday" 
     value: "true"
 
-- name: set gnome desktop dock to bottom
+- name: set gnome dock to bottom
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/dash-to-dock/dock-position" 
     value: "'BOTTOM'"
 
-- name: set gnome desktop dock to multi-monitor
+- name: set gnome dock to multi-monitor
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/dash-to-dock/multi-monitor" 
     value: "true"
 
-- name: set gnome desktop dock to hide trashcan
+- name: set gnome dock to hide trashcan
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/dash-to-dock/show-trash" 
     value: "false"
 
-- name: set gnome desktop dock to extend-height false
+- name: set gnome dock to extend-height false
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/dash-to-dock/extend-height" 
     value: "false"
 
-- name: set gnome desktop dock to fixed icon size 48
+- name: set gnome dock to fixed icon size 48
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/dash-to-dock/dash-max-icon-size" 
@@ -158,13 +158,6 @@
     chdir: /home/{{ username }}/git/nord-gnome-terminal/src
     creates: /home/{{ username }}/.ansible-flags/terminal_nord_theme_apply
 
-- name: set terminal to white theme
-  become_user: "{{ username }}"
-  dconf:
-    key: "/org/gnome/terminal/legacy/theme-variant"
-    value: "'light'"
-  when: theme == "light"
-
 - name: set terminal keybinding closetab
   become_user: "{{ username }}"
   dconf:
@@ -195,156 +188,6 @@
     key: "/org/gnome/terminal/legacy/keybindings/find"
     value: "'<Primary>f'"
 
-- name: fetch terminal default profile UUID
-  become_user: "{{ username }}"
-  shell: gsettings get org.gnome.Terminal.ProfilesList list | awk -F"['']" '{print $2}'
-  register: default_terminal_profile
-
-- name: set terminal profile name Nord
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/visible-name" 
-    value: "'Nord-JKH'"
-  when: theme == "light"
-
-- name: set terminal background color
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/background-color" 
-    value: "'rgb(216,222,233)'"
-  when: theme == "light"
-
-- name: set terminal background transparency true
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/use-transparent-background" 
-    value: "true"
-
-- name: set terminal background transparency-percent
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/transparency-percent" 
-    value: "8"
-
-- name: set terminal bold-color
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/bold-color" 
-    value: "'#D8DEE9'"
-  when: theme == "light"
-
-- name: set terminal bold-color-same-as-fg
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/bold-color-same-as-fg" 
-    value: "true"
-  when: theme == "light"
-
-- name: set terminal bold-is-bright false
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/bold-is-bright" 
-    value: "false"
-  when: theme == "light"
-
-- name: set terminal cursor-background-color
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/cursor-background-color" 
-    value: "'rgb(184,189,198)'"
-  when: theme == "light"
-
-- name: set terminal cursor-blink-mode
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/cursor-blink-mode" 
-    value: "'on'"
-  when: theme == "light"
-
-- name: set terminal cursor-colors-set true
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/cursor-colors-set" 
-    value: "true"
-  when: theme == "light"
-
-- name: set terminal cursor-foreground-color
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/cursor-foreground-color" 
-    value: "'rgb(59,66,82)'"
-  when: theme == "light"
-
-- name: set terminal foreground-color
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/foreground-color" 
-    value: "'rgb(46,52,64)'"
-  when: theme == "light"
-
-- name: set terminal highlight-background-color
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/highlight-background-color" 
-    value: "'rgb(136,192,208)'"
-  when: theme == "light"
-
-- name: set terminal highlight-colors-set
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/highlight-colors-set" 
-    value: "true"
-  when: theme == "light"
-
-- name: set terminal highlight-foreground-color
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/highlight-foreground-color" 
-    value: "'rgb(46,52,64)'"
-  when: theme == "light"
-
-- name: set terminal palette
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/palette" 
-    value: "['rgb(59,66,82)', 'rgb(191,97,106)', 'rgb(146,170,126)', 'rgb(205,178,123)', 'rgb(94,130,140)', 'rgb(180,142,173)', 'rgb(121,158,157)', 'rgb(149,152,156)', 'rgb(76,86,106)', 'rgb(162,84,92)', 'rgb(138,160,119)', 'rgb(186,162,114)', 'rgb(121,148,176)', 'rgb(157,125,151)', 'rgb(113,147,146)', 'rgb(121,123,127)']"
-  when: theme == "light"
-
-- name: set terminal scrollbar-policy never
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/scrollbar-policy" 
-    value: "'never'"
-  when: theme == "light"
-
-- name: set terminal use-system-font true
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/use-system-font" 
-    value: "true"
-  when: theme == "light"
-
-- name: set terminal use-theme-colors
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/use-theme-colors" 
-    value: "false"
-  when: theme == "light"
-
-- name: set terminal use-theme-transparency false
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/use-theme-transparency" 
-    value: "false"
-  when: theme == "light"
-
-- name: set terminal default profile
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/default" 
-    value: "'{{ default_terminal_profile.stdout }}'"
-  when: theme == "light"
-
 - name: disable default font in gedit
   become_user: "{{ username }}"
   dconf: 
@@ -356,23 +199,6 @@
   dconf: 
     key: "/org/gnome/gedit/preferences/editor/editor-font" 
     value: "'Hack 12'"
-
-- name: copy gedit nord theme xml
-  copy: 
-    src: files/themes/nord.xml
-    dest: /usr/share/gtksourceview-4/styles/
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    mode: '0600'
-    force: no
-  when: theme == "light"
-
-- name: set nord theme in gedit if lighttheme
-  become_user: "{{ username }}"
-  dconf:
-    key: "/org/gnome/gedit/preferences/editor/scheme"
-    value: "'Nord'"
-  when: theme == "light"
 
 - name: copy extensions zip
   copy: 
@@ -436,34 +262,6 @@
     key: "/org/gnome/shell/extensions/unite/show-window-title" 
     value: "'tiled'"
 
-- name: blur-my-shell brightness
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/blur-my-shell/brightness" 
-    value: "1.0"
-  when: theme == "light"
-
-- name: blur-my-shell color-and-noise
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/blur-my-shell/color-and-noise" 
-    value: "false"
-  when: theme == "light"
-
-- name: blur-my-shell hacks-level no artifacts
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/blur-my-shell/hacks-level" 
-    value: "3"
-  when: theme == "light"
-
-- name: blur-my-shell sigma 30
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/blur-my-shell/sigma" 
-    value: "0"
-  when: theme == "light"
-
 - name: blur-my-shell panel true
   become_user: "{{ username }}"
   dconf: 
@@ -500,116 +298,11 @@
     key: "/org/gnome/shell/extensions/blur-my-shell/dash-to-dock/blur" 
     value: "false"
 
-- name: blur-my-shell applications true
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/blur-my-shell/applications/blur" 
-    value: "true"
-  when: theme == "light"
-
-- name: blur-my-shell applications customize false
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/blur-my-shell/applications/customize" 
-    value: "false"
-  when: theme == "light"
-
-- name: blur-my-shell applications enable all false
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/blur-my-shell/applications/enable-all" 
-    value: "false"
-  when: theme == "light"
-
-- name: blur-my-shell applications opacity
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/blur-my-shell/applications/opacity" 
-    value: "220"
-  when: theme == "light"
-
 - name: blur-my-shell applications whitelist
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/extensions/blur-my-shell/applications/whitelist" 
     value: "['org.gnome.Nautilus', 'gedit']"
-
-- name: blur-my-shell lockscreen blur false
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/blur-my-shell/lockscreen/blur" 
-    value: "false"
-  when: theme == "light"
-
-- name: blur-my-shell overview blur
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/blur-my-shell/overview/blur" 
-    value: "true"
-  when: theme == "light"
-
-- name: blur-my-shell overview custom blur true
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/blur-my-shell/overview/customize" 
-    value: "true"
-  when: theme == "light"
-
-- name: blur-my-shell overview style-components 1
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/blur-my-shell/overview/style-components" 
-    value: "1"
-  when: theme == "light"
-
-- name: blur-my-shell appfolder blur false
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/blur-my-shell/appfolder/blur" 
-    value: "false"
-  when: theme == "light"
-
-- name: dash-to-dock background color
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/dash-to-dock/background-color" 
-    value: "'rgb(216,222,233)'"
-  when: theme == "light"
-
-- name: dash-to-dock background opacity
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/dash-to-dock/background-opacity" 
-    value: "0.65"
-  when: theme == "light"
-
-- name: dash-to-dock enable custom background color
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/dash-to-dock/custom-background-color" 
-    value: "true"
-  when: theme == "light"
-
-- name: dash-to-dock disable intellihide
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/dash-to-dock/intellihide" 
-    value: "false"
-  when: theme == "light"
-
-- name: dash-to-dock enable multimonitor
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/dash-to-dock/multi-monitor" 
-    value: "true"
-  when: theme == "light"
-
-- name: dash-to-dock transparency mode fixed
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/dash-to-dock/transparency-mode" 
-    value: "'FIXED'"
-  when: theme == "light"
 
 - name: gnome-extension rounded corners settings
   become_user: "{{ username }}"
@@ -876,50 +569,6 @@
   dconf:
     key: "/org/gnome/shell/enabled-extensions"
     value: "['unite@hardpixel.eu', 'blur-my-shell@aunetx', 'custom-hot-corners-extended@G-dH.github.com', 'widgets@aylur', 'dash-to-dock@micxgx.gmail.com']"
-
-- name: disable extensions if light theme
-  become_user: "{{ username }}"
-  dconf:
-    key: "/org/gnome/shell/disabled-extensions"
-    value: "['rounded-window-corners@yilozt']"
-  when: theme == "light"
-
-- name: clone whitesur theme if lighttheme
-  shell: cd /home/{{ username }}/git/ && git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git && touch /home/{{ username }}/.ansible-flags/whitesur_cloned
-  args:
-    creates: /home/{{ username }}/.ansible-flags/whitesur_cloned
-  when: theme == "light"
-
-- name: install whitesur theme if lighttheme
-  become: yes
-  shell: ./install.sh -c Light -c Dark && touch /home/{{ username }}/.ansible-flags/whitesur_installed
-  args: 
-    chdir: /home/{{ username }}/git/WhiteSur-gtk-theme
-    creates: /home/{{ username }}/.ansible-flags/whitesur_installed
-  when: theme == "light"
-
-- name: tweak whitesur theme if lighttheme
-  become: yes
-  shell: ./tweaks.sh --dash-to-dock --silent-mode && touch /home/{{ username }}/.ansible-flags/whitesur_tweaked
-  args: 
-    chdir: /home/{{ username }}/git/WhiteSur-gtk-theme
-    creates: /home/{{ username }}/.ansible-flags/whitesur_tweaked
-  when: theme == "light"
-
-- name: set user_theme to whitesur if light theme
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/shell/extensions/user-theme/name" 
-    value: "'WhiteSur-Light'"
-  when: theme == "light"
-
-- name: set gtk-theme to whitesur if light theme
-  become_user: "{{ username }}"
-  dconf: 
-    key: "/org/gnome/desktop/interface/gtk-theme" 
-    value: "'WhiteSur-Light'"
-  when: theme == "light"
-
 
 - name: set wallpaper
   become_user: "{{ username }}"
