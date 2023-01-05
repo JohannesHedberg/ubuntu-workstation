@@ -137,12 +137,12 @@
 
 - name: copy gedit nord theme xml
   copy: 
-    src: files/themes/nord.xml
-    dest: /usr/share/gtksourceview-4/styles/
+    src: files/themes/gedit-nord-dark.xml
+    dest: /usr/share/gtksourceview-4/styles/nord.xml
     owner: "{{ username }}"
     group: "{{ username }}"
     mode: '0600'
-    force: no
+    force: yes
 
 - name: set nord theme in gedit
   become_user: "{{ username }}"

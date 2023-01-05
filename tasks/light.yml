@@ -9,11 +9,23 @@
   shell: gsettings get org.gnome.Terminal.ProfilesList list | awk -F"['']" '{print $2}'
   register: default_terminal_profile
 
-- name: set terminal profile name Nord
+- name: set terminal profile name
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/visible-name" 
     value: "'Nord-Light-JKH'"
+
+- name: set terminal background transparency true
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/use-transparent-background" 
+    value: "true"
+
+- name: set terminal background transparency-percent
+  become_user: "{{ username }}"
+  dconf: 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/transparency-percent" 
+    value: "8"
 
 - name: set terminal background color
   become_user: "{{ username }}"
@@ -125,12 +137,12 @@
 
 - name: copy gedit nord theme xml
   copy: 
-    src: files/themes/nord.xml
-    dest: /usr/share/gtksourceview-4/styles/
+    src: files/themes/gedit-nord-light.xml
+    dest: /usr/share/gtksourceview-4/styles/nord.xml
     owner: "{{ username }}"
     group: "{{ username }}"
     mode: '0600'
-    force: no
+    force: yes
 
 - name: set nord theme in gedit if lighttheme
   become_user: "{{ username }}"
