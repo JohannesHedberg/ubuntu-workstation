@@ -465,7 +465,7 @@
 - name: gnome-extension aylurs widget notification-indicator-position
   become_user: "{{ username }}"
   dconf: 
-    key: "/org/gnome/shell/extensions/aylurs-widgets/notificaion-indicator-position" 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/notification-indicator-position" 
     value: "2"
 
 - name: gnome-extension aylurs widget power menu false
