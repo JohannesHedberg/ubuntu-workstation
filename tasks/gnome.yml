@@ -72,7 +72,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/favorite-apps" 
-    value: "['brave-browser.desktop', 'org.gnome.Terminal.desktop', 'code.desktop', 'spotify.desktop', 'nordpass_nordpass.desktop', 'org.gnome.Nautilus.desktop']"
+    value: "['brave-browser.desktop', 'org.gnome.Terminal.desktop', 'code_code.desktop', 'spotify.desktop', 'nordpass_nordpass.desktop', 'org.gnome.Nautilus.desktop']"
 
 - name: copy wallpaper folder
   copy: 
