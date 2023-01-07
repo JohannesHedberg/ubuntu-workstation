@@ -601,13 +601,13 @@
     value="'stetched'"
 
 - name: copy profile pic
-  become_user: "{{ username }}"
+  become: yes
   copy: 
     src: files/pictures/johannes.jpg
     dest: /var/lib/AccountsService/icons/johannes
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: '0604'
+    mode: '0755'
 
 - name: set profile picture
   become: yes
