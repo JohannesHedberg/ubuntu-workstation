@@ -209,6 +209,12 @@
     mode: '0600' 
     force: no
 
+- name: create gnome-shell/extensions folder if it doesn't exist
+  file:
+    path: /home/{{ username }}/.local/share/gnome-shell/extensions/
+    state: directory
+    mode: '0755'
+
 - name: extract gnome-extensions.zip
   unarchive: 
     src: /home/{{ username }}/.theme/extensions.zip
