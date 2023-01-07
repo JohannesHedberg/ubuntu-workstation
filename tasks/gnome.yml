@@ -216,6 +216,7 @@
     mode: '0755'
 
 - name: extract gnome-extensions.zip
+  become_user: "{{ username }}"
   unarchive: 
     src: /home/{{ username }}/.theme/extensions.zip
     dest: /home/{{ username }}/.local/share/gnome-shell/extensions/
