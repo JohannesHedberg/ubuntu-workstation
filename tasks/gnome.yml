@@ -72,7 +72,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/favorite-apps" 
-    value: "['firefox_firefox.desktop', 'org.gnome.Terminal.desktop', 'code.desktop', 'spotify.desktop', 'nordpass_nordpass.desktop', 'org.gnome.Nautilus.desktop']"
+    value: "['brave-browser.desktop', 'org.gnome.Terminal.desktop', 'code.desktop', 'spotify.desktop', 'nordpass_nordpass.desktop', 'org.gnome.Nautilus.desktop']"
 
 - name: copy wallpaper folder
   copy: 
@@ -218,7 +218,8 @@
 - name: extract gnome-extensions.zip
   unarchive: 
     src: /home/{{ username }}/.theme/extensions.zip
-    dest: /home/{{ username }}/.local/share/gnome-shell/extensions
+    dest: /home/{{ username }}/.local/share/gnome-shell/extensions/
+    mode: '0755'
 
 - name: gnome-extension unite extend left box
   become_user: "{{ username }}"
