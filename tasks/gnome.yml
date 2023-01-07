@@ -218,7 +218,7 @@
 - name: extract gnome-extensions.zip
   unarchive: 
     src: /home/{{ username }}/.theme/extensions.zip
-    dest: /home/{{ username }}/.local/share/gnome-shell/extensions/
+    dest: /home/{{ username }}/.local/share/gnome-shell/extensions
 
 - name: gnome-extension unite extend left box
   become_user: "{{ username }}"
