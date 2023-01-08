@@ -8,6 +8,11 @@
   args:
     creates: /home/{{ username }}/.ansible-flags/bash_history
 
+- name: enable pgup and pgdown to search in zsh history
+  shell: sudo printf '\n#enables effective cmd history search using pgup and pgdwn\nbindkey "^[[5~"{{ ":" }} history-beginning-search-backward \nbindkey "^[[6~"{{ ":" }} history-beginning-search-forward\n' >> /home/{{ username }}/.zshrc && touch /home/{{ username }}/.ansible-flags/zsh_history
+  args:
+    creates: /home/{{ username }}/.ansible-flags/zsh_history
+
 - name: enable effective change directory addon using shortcut f
   shell: sudo printf '\n#enables effective change directory searching using shortcut f\nf () {\n  d=$(fdfind --type directory | fzf)\n  [[ ! -z "$d" ]] && cd $d\n}\n' >> /home/{{ username }}/.bashrc && touch /home/{{ username }}/.ansible-flags/cd-search
   args:
