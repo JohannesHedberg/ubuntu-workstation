@@ -36,7 +36,7 @@
   command: snap install code --classic
 
 # kubectl
-- name: kubectl - Download kubectl binary
+- name: download kubectl binary
   get_url:
     url: "https://storage.googleapis.com/kubernetes-release/release/v{{ kubectl_version }}/bin/{{ kubectl_os }}/{{ kubectl_arch }}/kubectl"
     checksum: "{{ kubectl_checksum_binary }}"
@@ -44,7 +44,7 @@
   tags:
     - kubectl
 
-- name: kubectl - Copy kubectl binary to destination directory
+- name: copy kubectl binary to destination directory
   copy:
     src: "{{ kubectl_tmp_directory }}/{{ item }}"
     dest: "{{ kubectl_bin_directory }}/{{ item }}"
