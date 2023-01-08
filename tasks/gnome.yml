@@ -72,7 +72,7 @@
   become_user: "{{ username }}"
   dconf: 
     key: "/org/gnome/shell/favorite-apps" 
-    value: "['brave-browser.desktop', 'org.gnome.Terminal.desktop', 'code.desktop', 'spotify.desktop', 'nordpass_nordpass.desktop', 'org.gnome.Nautilus.desktop']"
+    value: "['brave-browser.desktop', 'org.gnome.Terminal.desktop', 'code_code.desktop', 'spotify.desktop', 'nordpass_nordpass.desktop', 'org.gnome.Nautilus.desktop']"
 
 - name: copy wallpaper folder
   copy: 
@@ -465,7 +465,7 @@
 - name: gnome-extension aylurs widget notification-indicator-position
   become_user: "{{ username }}"
   dconf: 
-    key: "/org/gnome/shell/extensions/aylurs-widgets/notificaion-indicator-position" 
+    key: "/org/gnome/shell/extensions/aylurs-widgets/notification-indicator-position" 
     value: "2"
 
 - name: gnome-extension aylurs widget power menu false

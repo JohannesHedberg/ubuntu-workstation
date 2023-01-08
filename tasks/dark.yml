@@ -27,10 +27,10 @@
     key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/use-transparent-background" 
     value: "true"
 
-- name: set terminal background transparency-percent
+- name: set terminal background-transparency-percent
   become_user: "{{ username }}"
   dconf: 
-    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/transparency-percent" 
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ default_terminal_profile.stdout }}/background-transparency-percent" 
     value: "8"
 
 - name: set terminal bold-color
