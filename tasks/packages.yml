@@ -18,6 +18,7 @@
     - xsel # required for copying to clipboard with "| clipboard"
     - fd-find # required for searching history with f
     - fzf # required for searching history with f 
+    - curl
     - neofetch
     - bridge-utils
     - cpu-checker
@@ -33,4 +34,48 @@
 
 - name: install vscode via snap
   command: snap install code --classic
+
+# kubectl
+- name: kubectl - Download kubectl binary
+  get_url:
+    url: "https://storage.googleapis.com/kubernetes-release/release/v{{ kubectl_version }}/bin/{{ kubectl_os }}/{{ kubectl_arch }}/kubectl"
+    checksum: "{{ kubectl_checksum_binary }}"
+    dest: "{{ kubectl_tmp_directory }}"
+  tags:
+    - kubectl
+
+- name: kubectl - Copy kubectl binary to destination directory
+  copy:
+    src: "{{ kubectl_tmp_directory }}/{{ item }}"
+    dest: "{{ kubectl_bin_directory }}/{{ item }}"
+    mode: "{{ kubectl_binary_mode }}"
+    owner: "{{ kubectl_owner }}"
+    group: "{{ kubectl_group }}"
+    remote_src: yes
+  become: yes
+  with_items:
+    - kubectl
+
+# k9s
+- name: check if k9s exists
+  stat:
+    path: "/usr/local/bin/k9s"
+  register: k9s_downloaded
+
+- name: get k9s zip
+  get_url:
+    url: "https://github.com/derailed/k9s/releases/download/v{{ k9s_version }}/k9s_Linux_x86_64.tar.gz"
+    dest: /tmp/k9s_Linux_x86_64.tar.gz
+  when: not k9s_downloaded.stat.exists
+
+- name: unarchive k9s
+  unarchive:
+    src: /tmp/k9s_Linux_x86_64.tar.gz
+    dest: /tmp
+  when: not k9s_downloaded.stat.exists
+
+- name: install k9s
+  shell: mv /tmp/k9s /usr/local/bin/k9s
+  become: yes
+  when: not k9s_downloaded.stat.exists
 
